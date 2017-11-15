@@ -1,0 +1,8 @@
+@charset "ISO-8859-1";
+body{
+	background: #FCC513; /* fallback for old browsers */
+	background: -webkit-linear-gradient(right, #9aecf6, #a5e7db);
+	background: -moz-linear-gradient(right, #9aecf6, #a5e7db);
+	background: -o-linear-gradient(right, #9aecf6, #a5e7db);
+	background: linear-gradient(to left, #9aecf6, #a5e7db);     
+}

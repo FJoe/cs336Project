@@ -12,15 +12,16 @@
 </head>
 <body>
 	<div id="links" style="width:100%">
+		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	<br>
 	<br>
 	<form method="post" action="index.jsp">
-		<select name="table" type="submit" size=1>
+		<select name="table" size=1>
 			<option value="Airs">Airs</option>
 			<option value="Channel">Channel</option>
 			<option value="Commercial">Commercial</option>

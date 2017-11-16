@@ -11,9 +11,10 @@
 </head>
 <body>
 	<div id="links" style="width:100%">
+		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	<br>

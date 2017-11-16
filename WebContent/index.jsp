@@ -23,7 +23,8 @@
 		<select name="table" type="submit" size=1>
 			<option value="Airs">Airs</option>
 			<option value="Channel">Channel</option>
-			<option value="Consumer">Commercial</option>
+			<option value="Commercial">Commercial</option>
+			<option value="Consumer">Consumer</option>
 			<option value="Interested">Interested</option>
 			<option value="Product">Product</option>
 			<option value="Sees">Sees</option>
@@ -31,7 +32,6 @@
 			<option value="Watches">Watches</option>
 		</select>&nbsp;<br><input type="submit" value="submit">
 	</form>
-	
 	<%
     
 		try {

@@ -14,7 +14,8 @@
 		<a class="link" href="edit.jsp">Edit Tuple</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
-	
+	<br>
+	<br>
 	WELCOME TO CommercialFacts
 </body>
 </html>

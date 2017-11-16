@@ -16,118 +16,142 @@
 		<a class="link" href="edit.jsp">Edit Tuple</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
+	<br>
+	<select id="choose_table" size=1>
+		<option value="airs">Airs</option>
+		<option value="channel">Channel</option>
+		<option value="commercial">Commercial</option>
+		<option value="consumer">Consumer</option>
+		<option value="interested">Interested</option>
+		<option value="product">Product</option>
+		<option value="sees">Sees</option>
+		<option value="sells">Sells</option>
+		<option value="watches">Watches</option>
+	</select>&nbsp;<br>
+	<button onclick="selectAdd()">Select</button>
+	
+	<br>
+	<br>
 
-	<form method="post" action="add.jsp">
-		<input type="text" placeholder="Name" name="name">
-		<br>
-		<input type="text" placeholder="City" name="city">
-		<br>
-		<input type="text" placeholder="Age" name="age">
-		<br>
-		<input type="radio" name="gender" value="Male"/>Male
-		<br>
-		<input type="radio" name="gender" value="Female"/>Female
-		<br>
+	<p id="adding"> Adding to table: <b>airs</b></p>
 
-		<input type="submit" value="Submit">
+	<form id="airs" method="post" action="add_tuple.jsp">
+		<input type="text" value="Airs" name="table" style="display:none">
+		<input type="text" placeholder="Commercial Name" name="Commercial">
+		<br>
+		<input type="text" placeholder="Channel Name" name="Channel">
+		<br>
+		<input type="submit" value="Add Value">
 	</form>
 
-	<%
-    
-	try {
+	<form id="channel" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Channel" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name">
+		<br>
+		<input type="text" placeholder="Genre" name="Genre">
+		<br>
+		<input type="text" placeholder="Taget Age" name="Target Age">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
+	
+	<form id="commercial" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Commercial" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name">
+		<br>
+		<input type="text" placeholder="Tactic" name="Tactic">
+		<br>
+		<input type="text" placeholder="City" name="City">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
 
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
-		//Get parameters from the HTML form at the HelloWorld.jsp
-		String newName = request.getParameter("name");
-		String newCity = request.getParameter("city");
-		int newAge = Integer.valueOf(request.getParameter("age"));
-		String newGender = request.getParameter("gender");
-		if(newName != null && newCity != null && newGender != null){
+	<form id="consumer" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Consumer" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name">
+		<br>
+		<input type="text" placeholder="City" name="City">
+		<br>
+		<input type="text" placeholder="Age" name="Age">
+		<br>
+		<input type="radio" name="Gender" value="Male"/>Male
+		<br>
+		<input type="radio" name="Gender" value="Female"/>Female
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
 
-		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO Project.Consumer(name, city, gender, age)"
-				+ "VALUES (?, ?, ?, ?)";
-		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
-		PreparedStatement ps = con.prepareStatement(insert);
+	<form id="interested" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Interested" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer">
+		<br>
+		<input type="text" placeholder="Product" name="Product">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
+	
+	<form id="product" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Product" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name">
+		<br>
+		<input type="text" placeholder="Price" name="Price">
+		<br>
+		<input type="text" placeholder="Market" name="Market">
+		<br>
+		<input type="text" placeholder="Company" name="Company">
+		<br>
+		<input type="radio" name="Gender" value="Male"/>Male
+		<br>
+		<input type="radio" name="Gender" value="Female"/>Female
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
 
-		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-		ps.setString(1, newName);
-		ps.setString(2, newCity);
-		ps.setString(3, newGender);
-		ps.setInt(4, newAge);
-		
-		//Run the query against the DB
-		ps.executeUpdate();
+	<form id="sees" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Sees" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer">
+		<br>
+		<input type="text" placeholder="Commercial" name="Commercial">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
+	
+	<form id="sells" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Sells" name="table" style="display:none">
+		<input type="text" placeholder="Commercial" name="Commercial">
+		<br>
+		<input type="text" placeholder="Product" name="Product">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
+	
+	<form id="watches" method="post" style="display:none" action="add_tuple.jsp">
+		<input type="text" value="Watches" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer">
+		<br>
+		<input type="text" placeholder="Channel" name="Channel">
+		<br>
+		<input type="submit" value="Add Value">
+	</form>
+	<br>
+	<br>
 
-		//Create a SQL statement
-		Statement stmt = con.createStatement();
-		
-		//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-		String str = "SELECT * FROM Project.Consumer";
-		//Run the query against the database.
-		ResultSet result = stmt.executeQuery(str);
-		//Make an HTML table to show the results in:
-		out.print("<table>");
-
-		//make a row
-		out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("Name");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("City");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Gender");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Age");
-			out.print("</td>");
-		out.print("</tr>");
-
-		//parse out the results
-		while (result.next()) {
-			//make a row
-			out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//Print out current bar or beer name:
-				out.print(result.getString("Name"));
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print(result.getString("City"));
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print(result.getString("Gender"));
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print(result.getString("Age"));
-				out.print("</td>");
-			out.print("</tr>");
-
-		}
-		out.print("</table>");
-
-		//close the connection.
-		db.closeConnection(con);
-	} 
-		}
-	catch(NumberFormatException e){
-		out.print("<p>Incorrect Age</p>");
+<script>
+function selectAdd(){
+	var formsCollection = document.getElementsByTagName("form");
+	for(var i=0;i<formsCollection.length;i++)
+	{
+	   formsCollection[i].style.display = "none";
 	}
-	catch (Exception e) {
-		out.print(e);
-	}
-	%>
+	var selected = document.getElementById("choose_table");
+	var tableName = selected.options[selected.selectedIndex].value;
+	var display  = document.getElementById(String(tableName));
+
+	display.style.display = "block";
+	
+	document.getElementById("adding").innerHTML = "Adding to table: <b>" + tableName + "</b>";
+	document.getElementById("links").style.display = "block";
+}
+</script>
 </body>
 </html>

@@ -80,12 +80,12 @@
 				Statement stmt = con.createStatement();
 				
 				//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-				String str = "SELECT * FROM Project." + table + " WHERE " + table + "." + param.get(i) + " = \"" + value + "\"";
-				
+				String str = "SELECT * FROM Project." + param.get(i) + " WHERE Name = \"" + value + "\"";
+
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				if(!result.next())
-					throw new ValueNotPresentException("Value not present in table");
+					throw new ValueNotPresentException("Value " + value + " not present in table");
 			}
 			value = "\""+ value + "\"";
 			
@@ -113,10 +113,10 @@
 		out.print("<p>ERROR: Not all fields were filled in</p>");
 	}
 	catch(NameAlreadyPresentException e){
-		out.print("<p>ERROR: Name is already present in table</p>");
+		out.print("<p>ERROR: " + e + "</p>");
 	}
 	catch(ValueNotPresentException e){
-		out.print("<p>ERROR: Value is not present in table</p>");
+		out.print("<p>ERROR: " + e + "</p>");
 	}
 	catch (Exception e) {
 		out.print("<p>ERROR: " + e + " </p>");

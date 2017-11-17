@@ -66,12 +66,50 @@
 				out.print("<p>Successfully deleted!</p>");
 				
 				//UPDATE DELETED THING!!!
-				if(tableToDelete.equals("Consumer") || tableToDelete.equals("Product") || tableToDelete.equals("Commercial") || tableToDelete.equals("Channel")){
-					
+				if(tableToDelete.equals("Consumer")){
+					String delete1 = "DELETE FROM Project.Interested WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete1);
+					ps.executeUpdate();
+					String delete2 = "DELETE FROM Project.Watches WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete2);
+					ps.executeUpdate();
+					String delete3 = "DELETE FROM Project.Sees WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete3);
+					ps.executeUpdate();
+				}
+				else if(tableToDelete.equals("Product")){
+					String delete1 = "DELETE FROM Project.Interested WHERE Product = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete1);
+					ps.executeUpdate();
+					String delete2 = "DELETE FROM Project.Sells WHERE Product = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete2);
+					ps.executeUpdate();
+				}
+				else if(tableToDelete.equals("Commercial")){
+					String delete1 = "DELETE FROM Project.Sells WHERE Commercial = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete1);
+					ps.executeUpdate();
+					String delete2 = "DELETE FROM Project.Airs WHERE Commercial = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete2);
+					ps.executeUpdate();
+				}
+				else if(tableToDelete.equals("Channel")){
+					String delete1 = "DELETE FROM Project.Sells WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete1);
+					ps.executeUpdate();
+					String delete2 = "DELETE FROM Project.Airs WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete2);
+					ps.executeUpdate();
+					String delete3 = "DELETE FROM Project.Sees WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					ps = con.prepareStatement(delete3);
+					ps.executeUpdate();
 				}
 				
 				table = tableToDelete;
+				ps.close();
+
 			}
+			
 			
 			if(table != null){
 				

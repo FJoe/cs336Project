@@ -7,7 +7,7 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add table</title>
+<title>Add Tuple - CommercialFacts</title>
 </head>
 <body>
 	<div id="links" style="width:100%">
@@ -15,6 +15,7 @@
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
 		<a class="link" href="delete.jsp">Delete Tuple</a>
+		<a class="link" href="product.jsp">Optimize Product</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	<br>
@@ -29,7 +30,7 @@
 		<option value="sells">Sells</option>
 		<option value="watches">Watches</option>
 	</select>&nbsp;<br>
-	<button onclick="selectAdd()">Select</button>
+	<button onclick="selectAdd()">Select Table</button>
 	
 	<br>
 	<br>
@@ -101,9 +102,9 @@
 		<br>
 		<input type="text" placeholder="Company" name="Company">
 		<br>
-		<input type="radio" name="Gender" value="Male"/>Male
+		<input type="radio" name="Gender" value="Male"/>Target Males
 		<br>
-		<input type="radio" name="Gender" value="Female"/>Female
+		<input type="radio" name="Gender" value="Female"/>Target Females
 		<br>
 		<input type="submit" value="Add Value">
 	</form>

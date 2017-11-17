@@ -7,14 +7,15 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Delete From Table</title>
+<title>Delete Tuple - CommercialFacts</title>
 </head>
 <body>
-	<div id="links">
+	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
 		<a class="link" href="delete.jsp">Delete Tuple</a>
+		<a class="link" href="product.jsp">Optimize Product</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	<br>
@@ -161,6 +162,7 @@
 		
 				//close the connection.
 				db.closeConnection(con);
+				con.close();			
 			}
 		} catch (Exception e) {
 			out.print(e);

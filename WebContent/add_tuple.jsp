@@ -7,7 +7,7 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add table</title>
+<title>Add tuple result - CommercialFacts</title>
 </head>
 <body>
 	<div id="links" style="width:100%">
@@ -15,6 +15,7 @@
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
 		<a class="link" href="delete.jsp">Delete Tuple</a>
+		<a class="link" href="product.jsp">Optimize Product</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	
@@ -61,8 +62,30 @@
 		for(int i = 0; i < param.size(); i++){
 			String value = request.getParameter(param.get(i));
 			if(value == null || value.equals("")){
+				db.closeConnection(con);
+				con.close();
 				throw new NotCompleteException("Entry not filled in: " + param.get(i));
 			}
+			if(param.get(i).equals("Target Age") || param.get(i).equals("Age")){
+				try{
+					Integer.parseInt(value);
+				}catch(NumberFormatException e){
+					db.closeConnection(con);
+					con.close();
+					throw new NumberFormatException();
+				}
+			}
+			else if(param.get(i).equals("Price")){
+				try{
+					Double.parseDouble(value);
+				}catch(NumberFormatException e){
+					db.closeConnection(con);
+					con.close();
+					throw new NumberFormatException();
+				}
+			}
+			
+			//Checks if Name of entity is not already present
 			if(param.get(i).equals("Name") && (table.equals("Product") || table.equals("Consumer") || table.equals("Commercial") || table.equals("Channel"))){
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
@@ -72,9 +95,13 @@
 				
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
-				if(result.next())
-					throw new NameAlreadyPresentException("Name is already present in table");
+				if(result.next()){
+					db.closeConnection(con);
+					con.close();
+					throw new NameAlreadyPresentException("Name is already present in table " + table);
+				}
 			}
+			//Checks if both entities in relationship are present in respective entity table
 			else if(table.equals("Interested") || table.equals("Sells") || table.equals("Watches") || table.equals("Airs") || table.equals("Sees")){
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
@@ -84,8 +111,11 @@
 
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
-				if(!result.next())
-					throw new ValueNotPresentException("Value " + value + " not present in table");
+				if(!result.next()){
+					db.closeConnection(con);
+					con.close();
+					throw new ValueNotPresentException("Value " + value + " not present in table " + table);
+				}
 			}
 			value = "\""+ value + "\"";
 			
@@ -104,19 +134,20 @@
 		
 		//close the connection.
 		db.closeConnection(con);
+		con.close();
 		out.print("<p>Successfully inserted!</p>");
 	}
 	catch(NumberFormatException e){
-		out.print("<p>ERROR: Incorrect Number Format (Integer was not inputted)</p>");
+		out.print("<p>ERROR: Incorrect Number Format (Number was not inputted)</p>");
 	}
 	catch(NotCompleteException e){
 		out.print("<p>ERROR: Not all fields were filled in</p>");
 	}
 	catch(NameAlreadyPresentException e){
-		out.print("<p>ERROR: " + e + "</p>");
+		out.print("<p>ERROR: " + e.getMessage() + "</p>");
 	}
 	catch(ValueNotPresentException e){
-		out.print("<p>ERROR: " + e + "</p>");
+		out.print("<p>ERROR: " + e.getMessage() + "</p>");
 	}
 	catch (Exception e) {
 		out.print("<p>ERROR: " + e + " </p>");

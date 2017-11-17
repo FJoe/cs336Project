@@ -13,10 +13,14 @@
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
 		<a class="link" href="delete.jsp">Delete Tuple</a>
+		<a class="link" href="product.jsp">Optimize Product</a>
 		<a class="link" href="facts.jsp">Facts</a>
 	</div>
 	<br>
 	<br>
-	WELCOME TO CommercialFacts
+	<h1>WELCOME TO CommercialFacts</h1>
+	<br>
+	<br>
+	<p>Our purpose is to display information about Consumers, Products, Commercials, and Channels and to find the optimal combination of attributes to have consumers most interested in a product.</p>
 </body>
 </html>

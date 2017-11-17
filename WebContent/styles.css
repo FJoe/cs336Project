@@ -6,3 +6,21 @@ body{
 	background: -o-linear-gradient(right, #9aecf6, #a5e7db);
 	background: linear-gradient(to left, #9aecf6, #a5e7db);     
 }
+
+.link{
+	margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+a:link, a:visited {
+    color: blue;
+}
+a:hover {
+    color: red;
+}
+
+#indent{
+	text-indent: 3em;
+}

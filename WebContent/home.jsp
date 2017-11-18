@@ -9,18 +9,16 @@
 </head>
 <body>
 	<div id="links" style="width:100%">
-		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="delete.jsp">Delete Tuple</a>
-		<a class="link" href="product.jsp">Optimize Product</a>
-		<a class="link" href="facts.jsp">Facts</a>
+		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="facts.jsp">Commercial Generator</a>
+		<a class="link" href="facts_channel.jsp">Viewer favorites</a>
+		<a class="link" href="facts_commercial.jsp">Best channel for me?</a>
+		<a class="link" href="facts_consumer.jsp">consumer?</a>
 	</div>
 	<br>
 	<br>
-	<h1>WELCOME TO CommercialFacts</h1>
-	<br>
-	<br>
-	<p>Our purpose is to display information about Consumers, Products, Commercials, and Channels and to find the optimal combination of attributes to have consumers most interested in a product.</p>
+	WELCOME TO CommercialFacts
 </body>
 </html>

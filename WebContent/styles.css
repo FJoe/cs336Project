@@ -7,20 +7,25 @@ body{
 	background: linear-gradient(to left, #9aecf6, #a5e7db);     
 }
 
-.link{
-	margin-right: 20px;
+a:link {
+	text-decoration:none;
+	border-right-style:solid;
+	border-left-style:solid;
+	border-width:2px;
+	border-color:gray;
+	border-radius:3px;
+	color:black;
 }
-
-a {
-    text-decoration: none;
+a:visited {
+	color:#c40b3e;
+	background-color:white;
+	border-color:gray;
 }
-a:link, a:visited {
-    color: blue;
+a:active {
+	color:white;
 }
 a:hover {
-    color: red;
-}
+	border-top-style:solid;
+	border-bottom-style:solid;
 
-#indent{
-	text-indent: 3em;
 }

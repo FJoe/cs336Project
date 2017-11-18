@@ -7,16 +7,17 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Tuple - CommercialFacts</title>
+<title>Add table</title>
 </head>
 <body>
 	<div id="links" style="width:100%">
-		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="delete.jsp">Delete Tuple</a>
-		<a class="link" href="product.jsp">Optimize Product</a>
-		<a class="link" href="facts.jsp">Facts</a>
+		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="facts.jsp">Commercial Generator</a>
+		<a class="link" href="facts_channel.jsp">Viewer favorites</a>
+		<a class="link" href="facts_commercial.jsp">Best channel for me?</a>
+		<a class="link" href="facts_consumer.jsp">consumer?</a>
 	</div>
 	<br>
 	<select id="choose_table" size=1>
@@ -30,7 +31,7 @@
 		<option value="sells">Sells</option>
 		<option value="watches">Watches</option>
 	</select>&nbsp;<br>
-	<button onclick="selectAdd()">Select Table</button>
+	<button onclick="selectAdd()">Select</button>
 	
 	<br>
 	<br>
@@ -102,9 +103,9 @@
 		<br>
 		<input type="text" placeholder="Company" name="Company">
 		<br>
-		<input type="radio" name="Gender" value="Male"/>Target Males
+		<input type="radio" name="Gender" value="Male"/>Male
 		<br>
-		<input type="radio" name="Gender" value="Female"/>Target Females
+		<input type="radio" name="Gender" value="Female"/>Female
 		<br>
 		<input type="submit" value="Add Value">
 	</form>

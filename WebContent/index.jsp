@@ -39,6 +39,7 @@
 	<%
     
 		try {
+
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
@@ -53,6 +54,7 @@
 			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = "SELECT * FROM Project." + table;
+			
 			
 			out.print("<p>Current Table: <b>" + table + "</b>");
 			

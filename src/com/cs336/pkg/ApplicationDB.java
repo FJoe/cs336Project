@@ -11,7 +11,7 @@ public class ApplicationDB {
 	}
 
 	public Connection getConnection(){
-		
+
 		//Create a connection string
 		String connectionUrl = "jdbc:mysql://prininfoprojectcommercial.c4lvmvi7tnes.us-east-2.rds.amazonaws.com";
 		Connection connection = null;
@@ -19,6 +19,7 @@ public class ApplicationDB {
 		try {
 			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

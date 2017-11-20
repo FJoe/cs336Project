@@ -66,18 +66,25 @@ cursor: pointer;
 </head>
 <body>
 	<div id="links" style="width:100%">
+		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Best Channel for Me?</a>
-		<a class="link" href="facts_consumer.jsp">consumer?</a>
+		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
+		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 	</div>
 
 
 
 <form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+
+<p>
+<label style = "color: green">
+Input your information to find products you may be interested in
+</label>
+</p>
 
 <p>
 <label>Name
@@ -103,7 +110,7 @@ cursor: pointer;
 	<option value="Los_Angeles">Los Angeles</option>
 	<option value="New_York">New York</option>
 	<option value="Philadelphia">Philadelphia</option>
-	<option value="Phoenix">Phoenixt</option>
+	<option value="Phoenix">Phoenix</option>
 	<option value="San_Diego">San Diego</option>
 </select>
 </label> 
@@ -123,7 +130,7 @@ Female
 </p>
 
 
-<p><button >something</button></p>
+<p><button >Find me products!</button></p>
 
 
 

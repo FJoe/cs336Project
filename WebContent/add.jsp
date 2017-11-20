@@ -11,13 +11,14 @@
 </head>
 <body>
 	<div id="links" style="width:100%">
+		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
-		<a class="link" href="facts_channel.jsp">Viewer favorites</a>
-		<a class="link" href="facts_commercial.jsp">Best channel for me?</a>
-		<a class="link" href="facts_consumer.jsp">consumer?</a>
+		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
+		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
+		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 	</div>
 	<br>
 	<select id="choose_table" size=1>

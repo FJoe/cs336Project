@@ -8,6 +8,7 @@ body{
 }
 
 a:link {
+	padding:5px;
 	text-decoration:none;
 	border-right-style:solid;
 	border-left-style:solid;
@@ -27,5 +28,5 @@ a:active {
 a:hover {
 	border-top-style:solid;
 	border-bottom-style:solid;
-
+	background-color:#f4f4f4;
 }

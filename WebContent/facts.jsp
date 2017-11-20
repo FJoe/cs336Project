@@ -66,18 +66,24 @@ cursor: pointer;
 </head>
 <body>
 	<div id="links" style="width:100%">
+		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
 		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
+		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
-		<a class="link" href="facts_channel.jsp">Viewer favorites</a>
-		<a class="link" href="facts_commercial.jsp">Best channel for me?</a>
-		<a class="link" href="facts_consumer.jsp">consumer?</a>
+		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
+		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
+		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 	</div>
 
 
-
 <form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+
+<p>
+<label style = "color: green">
+Input your product data into this form to receive the best recommendations for your commercial
+</label>
+</p>
 
 <p>
 <label>Product Name

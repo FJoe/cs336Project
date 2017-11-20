@@ -19,7 +19,8 @@
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
 		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
-		<a class="link" href="most_popular.jsp">The Most Popular</a>
+		<a class="link" href="most_popular.jsp">Entity Stats</a>
+		<a class="link" href="patterns.jsp">Patterns</a>
 	</div>
 	
 	<!-- Prints most popular Product, Commercial, and Channel -->
@@ -35,7 +36,7 @@
 		
 		String str = "SELECT Product, Count(*) FROM Project.Interested GROUP BY Product ORDER BY Count(*) DESC LIMIT 1";
 		
-		out.print("<p>Product with most people interested in: ");
+		out.print("<p id=\"indent\">Product with most people interested in: ");
 		
 		ResultSet result = stmt.executeQuery(str);
 		result.next();
@@ -45,7 +46,7 @@
 		
 		str = "SELECT Product, Count(*) FROM Project.Sells GROUP BY Product ORDER BY Count(*) DESC LIMIT 1";
 		
-		out.print("<p>Product with most commercials: ");
+		out.print("<p id=\"indent\">Product with most commercials: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -55,7 +56,7 @@
 		stmt = con.createStatement();
 		
 		str = "SELECT Commercial, Count(*) FROM Project.Airs GROUP BY Commercial ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p>Commercial on most different channels: ");
+		out.print("<p id=\"indent\">Commercial on most different channels: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -65,7 +66,7 @@
 		stmt = con.createStatement();
 		
 		str = "SELECT Channel, Count(*) FROM Project.Watches GROUP BY Channel ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p>Channel with most people watching: ");
+		out.print("<p id=\"indent\">Channel with most people watching: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -78,6 +79,9 @@
 			out.print(e);
 	}
 	%>
+	<br>
+	<br>
+	<p>Select an entity table to select a specific tuple and find it's statistics</p>
 	
 	<form method="post" action="most_popular.jsp">
 		<select name="table" size=1>
@@ -87,9 +91,7 @@
 			<option value="Product">Product</option>
 		</select>&nbsp;<br><input type="submit" value="Select Table">
 	</form>
-	
-	<br>
-	
+		
 	<!-- Select Channel/Commercial/Product/Consumer to display individual stats -->
 	<%
 	try{
@@ -100,6 +102,7 @@
 		if(table == null)
 			table = request.getParameter("table_text");
 		if(table != null){
+			out.print("<p>Select an entity to find it's statistics");
 			out.print("<p>Selecting from table: " + table + "</p><br>");
 			out.print("<form method=\"post\" action=\"most_popular.jsp\">");
 			out.print("<input type=\"text\" value=\"" + table + "\" name=\"table_text\" style=\"display:none\">");
@@ -128,7 +131,7 @@
 			String tableText = request.getParameter("table_text");
 						
 			if(tableText.equals("Product")){
-				out.print("<p>Product: <b>" + name + "</b></p><br>");
+				out.print("<p id=\"indent\">Product: <b>" + name + "</b></p><br>");
 				
 				//Gets product's consumers
 				Statement stmt = con.createStatement();
@@ -136,7 +139,7 @@
 				String str = "SELECT Count(*) FROM Project.Interested WHERE Product = \"" + name + "\"";
 				ResultSet result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p>Has <b>" + result.getString(1) + "</b> interested consumers</p><br>");
+				out.print("<p id=\"indent\">Has <b>" + result.getString(1) + "</b> interested consumers</p><br>");
 				
 				//Gets product's commercials
 				stmt = con.createStatement();
@@ -144,11 +147,11 @@
 				str = "SELECT Count(*) FROM Project.Sells WHERE Product = \"" + name + "\"";
 				result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p>   Featured on <b>" + result.getString(1) + "</b> commercials</p><br>");
+				out.print("<p id=\"indent\">   Featured on <b>" + result.getString(1) + "</b> commercials</p><br>");
 				
 			}
 			else if(tableText.equals("Consumer")){
-				out.print("<p>Consumer: <b>" + name + "</b></p><br>");
+				out.print("<p id=\"indent\">Consumer: <b>" + name + "</b></p><br>");
 				
 				//Gets consumer's products
 				Statement stmt = con.createStatement();
@@ -156,7 +159,7 @@
 				String str = "SELECT Count(*) FROM Project.Interested WHERE Consumer = \"" + name + "\"";
 				ResultSet result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p>Interested in <b>" + result.getString(1) + "</b> products</p><br>");
+				out.print("<p id=\"indent\">Interested in <b>" + result.getString(1) + "</b> products</p><br>");
 				
 				//Gets consumer's channels
 				stmt = con.createStatement();
@@ -164,7 +167,7 @@
 				str = "SELECT Count(*) FROM Project.Watches WHERE Consumer = \"" + name + "\"";
 				result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p>Watches <b>" + result.getString(1) + "</b> channels</p><br>");
+				out.print("<p id=\"indent\">Watches <b>" + result.getString(1) + "</b> channels</p><br>");
 				
 				//Gets consumer's commercials
 				stmt = con.createStatement();
@@ -172,16 +175,16 @@
 				str = "SELECT Count(*) FROM Project.Sees WHERE Consumer = \"" + name + "\"";
 				result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p>Seen <b>" + result.getString(1) + "</b> commercials</p><br>");
+				out.print("<p id=\"indent\">Seen <b>" + result.getString(1) + "</b> commercials</p><br>");
 				
 			}
 			else if(tableText.equals("Commercial")){
-				out.print("<p>Commercial: <b>" + name + "</b></p><br>");
+				out.print("<p id=\"indent\">Commercial: <b>" + name + "</b></p><br>");
 				
 				//Gets Commercial's product
 				Statement stmt = con.createStatement();
 				String product = name.split("-_-")[0];
-				out.print("<p>Sells <b>" + product + "</b></p><br>");
+				out.print("<p id=\"indent\">Sells <b>" + product + "</b></p><br>");
 				
 				
 				//Gets Commercial's Channels
@@ -190,7 +193,7 @@
 				String str = "SELECT Count(*) FROM Project.Airs WHERE Commercial = \"" + name + "\"";
 				ResultSet result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p><b>" + result.getString(1) + "</b> channels air this commercial</p><br>");
+				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> channels air this commercial</p><br>");
 				
 				
 				//Gets Commercial's viewers (consumers)
@@ -199,11 +202,11 @@
 				str = "SELECT Count(*) FROM Project.Sees WHERE Commercial = \"" + name + "\"";
 				result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p><b>" + result.getString(1) + "</b> consumers have seen this</p><br>");
+				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> consumers have seen this</p><br>");
 				
 			}
 			else if(tableText.equals("Channel")){
-				out.print("<p>Commercial: <b>" + name + "</b></p><br>");	
+				out.print("<p id=\"indent\">Commercial: <b>" + name + "</b></p><br>");	
 				
 				//Gets Channel's viewers (consumers)
 				Statement stmt = con.createStatement();
@@ -211,7 +214,7 @@
 				String str = "SELECT Count(*) FROM Project.Watches WHERE Channel = \"" + name + "\"";
 				ResultSet result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p><b>" + result.getString(1) + "</b> consumers watch this channel</p><br>");
+				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> consumers watch this channel</p><br>");
 				
 				
 				//Gets Channel's commercials
@@ -220,7 +223,7 @@
 				str = "SELECT Count(*) FROM Project.Airs WHERE Channel = \"" + name + "\"";
 				result = stmt.executeQuery(str);
 				result.next();
-				out.print("<p><b>" + result.getString(1) + "</b> commercials air on this channel</p><br>");	
+				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> commercials air on this channel</p><br>");	
 			}
 		}
 		db.closeConnection(con);

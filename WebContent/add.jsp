@@ -19,7 +19,8 @@
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
 		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
-		<a class="link" href="most_popular.jsp">The Most Popular</a>
+		<a class="link" href="most_popular.jsp">Entity Stats</a>
+		<a class="link" href="patterns.jsp">Patterns</a>
 	</div>
 	<br>
 	<select id="choose_table" size=1>
@@ -141,6 +142,8 @@
 	<br>
 	<br>
 	
+	<p>	<b>WARNING: Adding an entity (Channel, Commercial, Consumer, or Product) is only possible if the entity name is not already present.</b></p>
+	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p>
 	<p>	<b>WARNING: Adding a relationship (Airs, Interested, Sees, Sells, or Watches) will only be added if both entities involved are present in the table.</b></p>
 	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p>
 

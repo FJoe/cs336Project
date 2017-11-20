@@ -36,8 +36,11 @@
 		<option value="Watches">Watches</option>
 	</select>&nbsp;<br><input type="submit" value="Choose Table">
 	</form>
+	<p>	<b>WARNING: Deleting an entity (Channel, Commercial, Consumer, or Product) will delete any occurrences this entity appears in any relationship.</b></p>
+	<p> <b>Example: Deleting a product will also delete any record of a consumer being interested in that product</b></p>
+
 	<br>
-	<br>
+
 	<%
     
 		try {

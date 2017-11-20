@@ -140,6 +140,9 @@
 	</form>
 	<br>
 	<br>
+	
+	<p>	<b>WARNING: Adding a relationship (Airs, Interested, Sees, Sells, or Watches) will only be added if both entities involved are present in the table.</b></p>
+	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p>
 
 <script>
 function selectAdd(){

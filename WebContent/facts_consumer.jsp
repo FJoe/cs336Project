@@ -101,7 +101,7 @@ Input your information to find products you may be interested in
 	
 <p>
 <label>City
-<select id="city">
+<select name="city">
 	<option style="color:gray" value="">Choose Closest City</option>
 	<option value="Boston">Boston</option>
 	<option value="Chicago">Chicago</option>

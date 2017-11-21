@@ -25,12 +25,8 @@
 	<%
     
 		try {
-			String age = request.getParameter("age");
-			if(Integer.parseInt(age) >= 80)
-				age = "69";
-			if(Integer.parseInt(age) < 0)
-				throw new NumberFormatException();
-			String gender = request.getParameter("gender");
+			String genre = request.getParameter("genre");
+			String targetAge = request.getParameter("age");
 			
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -47,20 +43,36 @@
 				"INNER JOIN Project.Consumer c ON c.Name = w.Consumer) " +
 				"INNER JOIN Project.Sees s ON s.Consumer = c.Name) " +
 				"INNER JOIN Project.Commercial co ON co.Name = s.Commercial) " +
-				"WHERE (('ch.Target Age' - c.Age < 10) OR c.Age - ('ch.Target Age' - c.Age < 10)) " +
-				"AND ((c.Age- " + age + " < 10) OR (" + age + " - c.Age < 10)) " +
+				"WHERE ch.Genre = '" + genre + "' " +
+				"AND 'ch.Target Age' = " + targetAge + " " + 
 				"GROUP BY co.Name " + 
 				"ORDER BY COUNT(w.Consumer) desc " +
 				"LIMIT 5";
-						
+
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 			ResultSetMetaData resultMD = result.getMetaData();
 			
+			boolean empty = false;
 			if(!result.next()){
-				out.print("<p>Sorry, no ideal commercials were found</p>");
+				stmt = con.createStatement();
+				str = "SELECT DISTINCT co.Name AS 'Best Commercials' " +
+						"FROM ((((Project.Watches w " + 
+						"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) "+
+						"INNER JOIN Project.Consumer c ON c.Name = w.Consumer) " +
+						"INNER JOIN Project.Sees s ON s.Consumer = c.Name) " +
+						"INNER JOIN Project.Commercial co ON co.Name = s.Commercial) " +
+						"WHERE ch.Genre = '" + genre + "' " +
+						"GROUP BY co.Name " + 
+						"ORDER BY COUNT(w.Consumer) desc " +
+						"LIMIT 5";
+				result = stmt.executeQuery(str);
+				resultMD = result.getMetaData();
+				if(!result.next()){
+					empty = true;
+				}
 			}
-			else{
+			if(!empty){
 				//Make an HTML table to show the results in:
 				out.print("<p>Here are some commercials the consumer may be interested to watch: </p>");
 				
@@ -90,65 +102,8 @@
 				}while (result.next());
 				out.print("</table>");
 			}
-			
-			out.print("<br>");
-			
-			//Create a SQL statement
-			stmt = con.createStatement();
-			
-
-			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			str = "SELECT DISTINCT p.Name AS 'Favorite Products', p.Market " +
-				"FROM ((((((Project.Consumer c " + 
-				"INNER JOIN Project.Watches w ON w.Consumer = c.Name) "+
-				"INNER JOIN Project.Channel ch ON  ch.Name = w.Channel) " +
-				"INNER JOIN Project.Airs a ON a.Channel = ch.Name)" +
-				"INNER JOIN Project.Commercial co ON co.Name = a.Commercial) " +
-				"INNER JOIN Project.Sells se ON se.Commercial = co.Name) " +
-				"INNER JOIN Project.Product p ON p.Name = se.Product) " +
-				"WHERE c.Gender = p.Gender " +
-				"AND (('ch.Target Age' - c.Age < 10) OR (c.Age - 'ch.Target Age' < 10)) " +
-				"AND c.Gender = '" + gender + "' " +
-				"AND ((" + age + " - c.Age < 10) OR (c.Age - " + age + " < 10)) " +
-				"GROUP BY co.Name " + 
-				"ORDER BY COUNT(w.Consumer) desc " +
-				"LIMIT 5";
-						
-			//Run the query against the database.
-			result = stmt.executeQuery(str);
-			resultMD = result.getMetaData();
-			
-			if(!result.next()){
-				out.print("<p>Sorry, no ideal product were found</p>");
-			}
 			else{
-				//Make an HTML table to show the results in:
-				out.print("<p>Here are some Products the consumer may be interested in: </p>");
-				
-				//Make an HTML table to show the results in:
-				out.print("<table>");
-		
-				//make a row
-				out.print("<tr>");
-				for(int i = 0; i < resultMD.getColumnCount(); i++){
-					out.print("<td>");
-					out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
-					out.print("</td>");
-				}
-				out.print("</tr>");
-		
-				//parse out the results
-				do {
-					//make a row
-					out.print("<tr>");
-					for(int i = 0; i < resultMD.getColumnCount(); i++){
-						out.print("<td>");
-						out.print(result.getString(i + 1));
-						out.print("</td>");
-					}
-					out.print("</tr>");
-		
-				}while (result.next());
+				out.print("<p>Sorry, no ideal commercials were found</p>");
 			}
 
 			//close the connection.

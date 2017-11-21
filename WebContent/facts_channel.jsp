@@ -79,7 +79,7 @@ cursor: pointer;
 
 
 
-<form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+<form class="myForm" action="make_channel_recs.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
 
 <p>
 <label style = "color: green">
@@ -89,20 +89,20 @@ Input your channel data here to find which commercials your typical viewers will
 
 <p>
 <label>Channel Name
-<input type="text" name="channel_name" required placeholder="Channel Name">
+<input type="text" name="name" placeholder="Channel Name">
 </label> 
 </p>
 
 <p>
 <label>Genre
-<select id="chooseMarket_table" required>
+<select name="genre">
 	<option style="color:gray" value="">Choose Genre</option>
 	<option value="Action">Action</option>
 	<option value="Animation">Animation</option>
 	<option value="Comedy">Comedy</option>
 	<option value="Cooking">Cooking</option>
 	<option value="Drama">Drama</option>
-	<option value="Game_Show">Game Show</option>
+	<option value="Game Show">Game Show</option>
 	<option value="Horror">Horror</option>
 	<option value="Kids">Kids</option>
 	<option value="News">News</option>
@@ -112,13 +112,14 @@ Input your channel data here to find which commercials your typical viewers will
 	
 <p>
 <label>Target Age
-<select id="chooseMarket_table" required>
+<select name="age">
 	<option style="color:gray" value="">Choose Age</option>
-	<option value="all">All Ages</option>
-	<option value="child"><18</option>
-	<option value="youn_adult">19-30</option>
-	<option value="adult">31-50</option>
-	<option value="old">51+</option>
+	<option value="3">All Ages</option>
+	<option value="13">Teen</option>
+	<option value="17">17</option>
+	<option value="20">19-30</option>
+	<option value="40">31-50</option>
+	<option value="60">51+</option>
 </select>
 </label> 
 </p>

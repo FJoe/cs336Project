@@ -84,6 +84,8 @@
 		<br>
 		<input type="radio" name="Gender" value="Female"/>Female
 		<br>
+		<input type="radio" name="Gender" value="Unknown"/>Unknown
+		<br>
 		<input type="submit" value="Add Value">
 	</form>
 

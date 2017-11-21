@@ -36,7 +36,7 @@
 		
 		String str = "SELECT Product, Count(*) FROM Project.Interested GROUP BY Product ORDER BY Count(*) DESC LIMIT 1";
 		
-		out.print("<p id=\"indent\">Product with most people interested in: ");
+		out.print("<p>Product with most people interested in: ");
 		
 		ResultSet result = stmt.executeQuery(str);
 		result.next();
@@ -46,7 +46,7 @@
 		
 		str = "SELECT Product, Count(*) FROM Project.Sells GROUP BY Product ORDER BY Count(*) DESC LIMIT 1";
 		
-		out.print("<p id=\"indent\">Product with most commercials: ");
+		out.print("<p>Product with most commercials: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -56,7 +56,7 @@
 		stmt = con.createStatement();
 		
 		str = "SELECT Commercial, Count(*) FROM Project.Airs GROUP BY Commercial ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p id=\"indent\">Commercial on most different channels: ");
+		out.print("<p>Commercial on most different channels: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -66,7 +66,7 @@
 		stmt = con.createStatement();
 		
 		str = "SELECT Channel, Count(*) FROM Project.Watches GROUP BY Channel ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p id=\"indent\">Channel with most people watching: ");
+		out.print("<p>Channel with most people watching: ");
 		
 		result = stmt.executeQuery(str);
 		result.next();
@@ -183,15 +183,18 @@
 				
 				//Gets Commercial's product
 				Statement stmt = con.createStatement();
-				String product = name.split("-_-")[0];
-				out.print("<p id=\"indent\">Sells <b>" + product + "</b></p><br>");
+				
+				String str = "SELECT Product FROM Project.Sells WHERE Commercial = \"" + name + "\"";
+				ResultSet result = stmt.executeQuery(str);
+				result.next();
+				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> is sold by this commercial</p><br>");
 				
 				
 				//Gets Commercial's Channels
 				stmt = con.createStatement();
 				
-				String str = "SELECT Count(*) FROM Project.Airs WHERE Commercial = \"" + name + "\"";
-				ResultSet result = stmt.executeQuery(str);
+				str = "SELECT Count(*) FROM Project.Airs WHERE Commercial = \"" + name + "\"";
+				result = stmt.executeQuery(str);
 				result.next();
 				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> channels air this commercial</p><br>");
 				

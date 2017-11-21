@@ -22,6 +22,7 @@
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div>
+	<br>
 	
 	<!-- Prints Patterns -->
 	<%
@@ -31,17 +32,53 @@
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
 		
-		//Gets most popular Product
 		Statement stmt = con.createStatement();
 		
 		String str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Video Games' " + 
 				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
 				"WHERE p.Market = 'video games' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
 		
-		out.print("<p id=\"indent\">Product with most people interested in: ");
+		out.print("<p>More guys are interested in video games than girls: </p>");
 		
 		ResultSet result = stmt.executeQuery(str);
 		ResultSetMetaData resultMD = result.getMetaData();
+		
+		//Make an HTML table to show the results in:
+		out.print("<table>");
+
+		//make a row
+		out.print("<tr>");
+		for(int i = 0; i < resultMD.getColumnCount(); i++){
+			out.print("<td>");
+			out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
+			out.print("</td>");
+		}
+		out.print("</tr>");
+
+		//parse out the results
+		while (result.next()) {
+			//make a row
+			out.print("<tr>");
+			for(int i = 0; i < resultMD.getColumnCount(); i++){
+				out.print("<td>");
+				out.print(result.getString(resultMD.getColumnName(i+1)));
+				out.print("</td>");
+			}
+			out.print("</tr>");
+
+		}
+		out.print("</table>");
+		
+		stmt = con.createStatement();
+		
+		str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Clothes' " + 
+				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
+				"WHERE p.Market = 'clothes' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
+		
+		out.print("<p>More girls are interested in clothes than guys: </p>");
+		
+		result = stmt.executeQuery(str);
+		resultMD = result.getMetaData();
 		
 		//Make an HTML table to show the results in:
 		out.print("<table>");

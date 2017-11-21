@@ -17,7 +17,6 @@
 		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
@@ -105,6 +104,45 @@
 
 		}
 		out.print("</table>");
+		
+		stmt = con.createStatement();
+		
+		str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Clothes' " + 
+				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
+				"WHERE p.Market = 'clothes' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
+		
+		out.print("<p>More girls are interested in clothes than guys: </p>");
+		
+		result = stmt.executeQuery(str);
+		resultMD = result.getMetaData();
+		
+		//Make an HTML table to show the results in:
+		out.print("<table>");
+
+		//make a row
+		out.print("<tr>");
+		for(int i = 0; i < resultMD.getColumnCount(); i++){
+			out.print("<td>");
+			out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
+			out.print("</td>");
+		}
+		out.print("</tr>");
+
+		//parse out the results
+		while (result.next()) {
+			//make a row
+			out.print("<tr>");
+			for(int i = 0; i < resultMD.getColumnCount(); i++){
+				out.print("<td>");
+				out.print(result.getString(resultMD.getColumnName(i+1)));
+				out.print("</td>");
+			}
+			out.print("</tr>");
+
+		}
+		out.print("</table>");
+		
+		
 		
 		//close the connection.
 		db.closeConnection(con);

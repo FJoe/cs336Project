@@ -72,7 +72,6 @@ cursor: pointer;
 		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
@@ -80,7 +79,7 @@ cursor: pointer;
 
 
 
-<form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+<form class="myForm" action="make_recommendations.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
 
 <p>
 <label style = "color: green">
@@ -90,19 +89,19 @@ Input your information to find products you may be interested in
 
 <p>
 <label>Name
-<input type="text" name="consumer_name" required placeholder="Your Name">
+<input type="text" name="name" placeholder="Your Name">
 </label> 
 </p>
 	
 <p>
 <label>Age
-<input type="text" name="consumer_age" required placeholder="Your Age">
+<input type="text" name="age" placeholder="Your Age">
 </label> 
 </p>
 	
 <p>
 <label>City
-<select id="chooseMarket_table" required>
+<select id="city">
 	<option style="color:gray" value="">Choose Closest City</option>
 	<option value="Boston">Boston</option>
 	<option value="Chicago">Chicago</option>
@@ -121,13 +120,13 @@ Input your information to find products you may be interested in
 <p>
 <label>
 Male
-<input type="radio" name="Gender" required value="Male" style="margin-left:-100px"/>
+<input type="radio" name="gender" value="Male" style="margin-left:-100px"/>
 </label>
 </p>
 <p>
 <label>
 Female
-<input type="radio" name="Gender" required value="Female"style="margin-left:-100px"/>
+<input type="radio" name="gender" value="Female"style="margin-left:-100px"/>
 </label>
 </p>
 

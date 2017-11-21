@@ -31,7 +31,6 @@
 		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
@@ -53,8 +52,7 @@
     				I am a Consumer<br>Looking for Products</button></td>
     	<td><button type="button" onclick="location.href='facts.jsp';">
     				I am a Product<br>Looking to create a Commercial</button></td></tr>
-    	<tr><td><button type="button" onclick="location.href='facts_commercial.jsp';">
-    				I am a Commercial<br>Looking for a Channel to advertise</button></td>
+    	<tr>
 	    <td><button type="button" onclick="location.href='facts_channel.jsp';">
 	    			I am a Channel<br>Looking for the best Commercials</button></td></tr>
 	</table>

@@ -17,34 +17,103 @@
 		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div>
 	
 	<%
-	var mysql = require('mysql');
+    
+		try {
 
-	var con = mysql.createConnection({
-	  host: " francisjoetest.c4lvmvi7tnes.us-east-2.rds.amazonaws.com",
-	  user: "FJoe",
-	  password: "bluemonkey"
-	});
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();		
+			
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			String market = request.getParameter("market");
+			String tactic = null;
+			String city = null;
+			
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+			String str = "SELECT DISTINCT c.Tactic AS 'Best Tactic' " +
+				"FROM (((Project.Interested i " + 
+				"INNER JOIN Project.Product p ON i.product = p.Name) "+
+				"INNER JOIN Project.Sees s ON s.Consumer = i.consumer) " +
+				"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
+				"WHERE p.Market = '" + market + "' " +
+				"GROUP BY c.Tactic " + 
+				"ORDER BY COUNT(i.consumer) desc " +
+				"LIMIT 1";
+						
+			//Run the query against the database.
+			ResultSet result = stmt.executeQuery(str);
+			if(!result.next()){
+				out.print("<p>Sorry, an ideal location was not found.</p>");
+			}else{
+				tactic = result.getString(1);
+				
+				//Make an HTML table to show the results in:
+				out.print("<p>The ideal tactic for this commercial is: " + tactic + "</p>");
+			}
 
-	con.connect(function(err) {
-	  if (err) throw err;
-	  console.log("Connected!");
-	  con.query("SELECT * FROM customers", function (err, result, fields) {
-		   if (err) throw err;
-		   console.log(result);
-	});
-	
-	
-	
-	
-	
-	
+			
+			stmt = con.createStatement();
+			
+			str = "SELECT DISTINCT c.City AS 'Best City'" +
+					"FROM (((Project.Interested i " + 
+					"INNER JOIN Project.Product p ON i.product = p.Name) "+
+					"INNER JOIN Project.Sees s ON s.Consumer = i.consumer) " +
+					"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
+					"WHERE p.Market = '" + market + "' " +
+					"GROUP BY c.City " +
+					"ORDER BY COUNT(i.consumer) desc " +
+					"LIMIT 1";
+			
+			result = stmt.executeQuery(str);
+			if(!result.next()){
+				out.print("<p>Sorry, an ideal location was not found.</p>");
+			}
+			else{
+				city = result.getString(1);
+				out.print("<p>The ideal location for this commercial is: " + city + "</p>");
+			}
+
+			
+			stmt = con.createStatement();
+			
+			if(tactic == null || city == null){
+				out.print("An ideal tactic and city is needed to find the ideal channel.");
+			}
+			else{
+				str = "SELECT DISTINCT ch.Name AS 'Best Channel' " +
+						"FROM (((Project.Watches w " +
+						"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) " +
+								"INNER JOIN Project.Sees s ON s.Consumer = w.Consumer) " +
+							"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
+								"WHERE c.Tactic = '" + tactic + "' "+
+								"AND c.City = '" + city + "' "+
+								"GROUP BY c.Name " +
+								"ORDER BY COUNT(w.Consumer) desc " +
+								"LIMIT 1";
+				
+				result = stmt.executeQuery(str);
+				out.print("<p>The ideal channel for this commercial to air is: ");
+				if(!result.next()){
+					out.print("<p>Sorry, an ideal channel was not found.</p>");
+				}
+				else{
+					out.print(result.getString(1) + "</p>");
+				}
+			}
+
+		//close the connection.
+		db.closeConnection(con);
+		} catch (Exception e) {
+			out.print(e);
+		}
 		
 	%>
 </body>

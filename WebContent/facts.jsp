@@ -72,7 +72,6 @@ cursor: pointer;
 		<a class="link" href="delete.jsp">Delete Tuple</a>
 		<a class="link" href="facts.jsp">Commercial Generator</a>
 		<a class="link" href="facts_channel.jsp">Viewer Favorites</a>
-		<a class="link" href="facts_commercial.jsp">Where to Advertise</a>
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
@@ -107,14 +106,14 @@ Input your product data into this form to receive the best recommendations for y
 	
 <p>
 <label>Market 
-<select id="chooseMarket_table" required>
+<select name="market">
 	<option style="color:gray" value="">Market</option>
-	<option value="product">Video Games</option>
-	<option value="commercial">Toys & Games</option>
-	<option value="consumer">Books</option>
-	<option value="channel">Electronics</option>
-	<option value="consumer">Camera & Photo</option>
-	<option value="channel">Clothes</option>
+	<option value="Video Games">Video Games</option>
+	<option value="Toys & Games">Toys & Games</option>
+	<option value="Books">Books</option>
+	<option value="Electronics">Electronics</option>
+	<option value="Camera & Photo">Camera & Photo</option>
+	<option value="Clothes">Clothes</option>
 </select>
 </label> 
 </p>
@@ -123,13 +122,13 @@ Input your product data into this form to receive the best recommendations for y
 <p>
 <label>
 Male
-<input type="radio" name="Gender" required value="Male" style="margin-left:-100px"/>
+<input type="radio" name="Gender" value="Male" style="margin-left:-100px"/>
 </label>
 </p>
 <p>
 <label>
 Female
-<input type="radio" name="Gender" required value="Female"style="margin-left:-100px"/>
+<input type="radio" name="Gender" value="Female"style="margin-left:-100px"/>
 </label>
 </p>
 

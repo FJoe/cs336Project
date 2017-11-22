@@ -26,15 +26,15 @@
 	<br>
 	<form method="post" action="index.jsp">
 		<select name="table" type="submit" size=1>
-			<option value="Airs">Airs</option>
-			<option value="Channel">Channel</option>
-			<option value="Commercial">Commercial</option>
-			<option value="Consumer">Consumer</option>
-			<option value="Interested">Interested</option>
-			<option value="Product">Product</option>
-			<option value="Sees">Sees</option>
-			<option value="Sells">Sells</option>
-			<option value="Watches">Watches</option>
+			<option value="airs">Airs</option>
+			<option value="channel">Channel</option>
+			<option value="commercial">Commercial</option>
+			<option value="consumer">Consumer</option>
+			<option value="interested">Interested</option>
+			<option value="product">Product</option>
+			<option value="sees">Sees</option>
+			<option value="sells">Sells</option>
+			<option value="watches">Watches</option>
 		</select>&nbsp;<br><input type="submit" value="submit">
 	</form>
 	<%
@@ -48,13 +48,13 @@
 			String table = request.getParameter("table");
 			
 			if(table == null)
-				table = "Airs";
+				table = "airs";
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT * FROM Project." + table;
+			String str = "SELECT * FROM cs336db." + table;
 			
 			
 			out.print("<p>Current Table: <b>" + table + "</b>");

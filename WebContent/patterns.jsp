@@ -7,7 +7,7 @@
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Facts - CommercialFacts</title>
+<title>Database Patterns</title>
 </head>
 <body>
 	<div id="links" style="width:100%">
@@ -33,11 +33,11 @@
 		
 		Statement stmt = con.createStatement();
 		
-		String str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Video Games' " + 
-				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
-				"WHERE p.Market = 'video games' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
+		String str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Video Games' " + 
+				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
+				"WHERE p.Market = 'video games' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<p>More guys are interested in video games than girls: </p>");
+		out.print("<p style=\"color:red\"><b>More guys are interested in video games than girls: </b></p>");
 		
 		ResultSet result = stmt.executeQuery(str);
 		ResultSetMetaData resultMD = result.getMetaData();
@@ -70,11 +70,11 @@
 		
 		stmt = con.createStatement();
 		
-		str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Clothes' " + 
-				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
-				"WHERE p.Market = 'clothes' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
+		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Clothes' " + 
+				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
+				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<p>More girls are interested in clothes than guys: </p>");
+		out.print("<br><p style=\"color:green\"><b>More girls are interested in clothes than guys: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -107,11 +107,11 @@
 		
 		stmt = con.createStatement();
 		
-		str = "SELECT c.gender AS Gender, Count(i.Consumer) as 'Interested in Clothes' " + 
-				"FROM Project.Consumer c JOIN Project.Interested i JOIN Project.Product p " +
-				"WHERE p.Market = 'clothes' AND i.Product = p.Name AND c.Name = i.Consumer GROUP BY c.Gender";
+		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Clothes' " + 
+				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
+				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<p>More girls are interested in clothes than guys: </p>");
+		out.print("<br><p style=\"color:purple\"><b>More girls are interested in clothes than guys: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -141,6 +141,48 @@
 
 		}
 		out.print("</table>");
+		
+		//New
+		stmt = con.createStatement();
+		
+		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Clothes' " + 
+				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
+				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
+		
+		out.print("<br><p style=\"color:purple\"><b>More girls are interested in clothes than guys: </b></p>");
+		
+		result = stmt.executeQuery(str);
+		resultMD = result.getMetaData();
+		
+		//Make an HTML table to show the results in:
+		out.print("<table>");
+
+		//make a row
+		out.print("<tr>");
+		for(int i = 0; i < resultMD.getColumnCount(); i++){
+			out.print("<td>");
+			out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
+			out.print("</td>");
+		}
+		out.print("</tr>");
+
+		//parse out the results
+		while (result.next()) {
+			//make a row
+			out.print("<tr>");
+			for(int i = 0; i < resultMD.getColumnCount(); i++){
+				out.print("<td>");
+				out.print(result.getString(resultMD.getColumnName(i+1)));
+				out.print("</td>");
+			}
+			out.print("</tr>");
+
+		}
+		out.print("</table>");
+		
+		
+		
+		
 		
 		
 		

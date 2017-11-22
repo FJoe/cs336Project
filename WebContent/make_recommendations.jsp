@@ -26,10 +26,13 @@
     
 		try {
 			String age = request.getParameter("age");
-			if(Integer.parseInt(age) >= 80)
-				age = "69";
-			if(Integer.parseInt(age) < 0)
+			if(Integer.parseInt(age) >= 70)
+				age = "70";
+			if(Integer.parseInt(age) < 20)
 				throw new NumberFormatException();
+			int temp = ((Integer.parseInt(age))/10)*10;
+			age = Integer.toString(temp);
+			
 			String gender = request.getParameter("gender");
 			
 			//Get the database connection
@@ -41,17 +44,17 @@
 			
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT DISTINCT co.Name AS 'Best Commercials' " +
-				"FROM ((((Project.Watches w " + 
-				"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) "+
-				"INNER JOIN Project.Consumer c ON c.Name = w.Consumer) " +
-				"INNER JOIN Project.Sees s ON s.Consumer = c.Name) " +
-				"INNER JOIN Project.Commercial co ON co.Name = s.Commercial) " +
-				"WHERE (('ch.Target Age' - c.Age < 10) OR c.Age - ('ch.Target Age' - c.Age < 10)) " +
-				"AND ((c.Age- " + age + " < 10) OR (" + age + " - c.Age < 10)) " +
-				"GROUP BY co.Name " + 
-				"ORDER BY COUNT(w.Consumer) desc " +
-				"LIMIT 5";
+			String str = 
+					"SELECT DISTINCT co.Name AS 'Best Commercials' "+
+					"FROM ((((cs336db.watches w "+
+					"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name)"+ 
+					"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) "+
+					"INNER JOIN cs336db.sees s ON s.Consumer = c.Name) "+
+					"INNER JOIN cs336db.commercial co ON co.Name = s.Commercial) "+
+					"WHERE " + age + " = ch.TargetAge " +
+					"GROUP BY co.Name "+
+					"ORDER BY COUNT(w.Consumer) desc "+ 
+					"LIMIT 5";
 						
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -95,21 +98,23 @@
 			
 			//Create a SQL statement
 			stmt = con.createStatement();
-			
+			if(gender != "Male" || gender != "Female"){
+				gender = "Male";
+			}
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			str = "SELECT DISTINCT p.Name AS 'Favorite Products', p.Market " +
-				"FROM ((((((Project.Consumer c " + 
-				"INNER JOIN Project.Watches w ON w.Consumer = c.Name) "+
-				"INNER JOIN Project.Channel ch ON  ch.Name = w.Channel) " +
-				"INNER JOIN Project.Airs a ON a.Channel = ch.Name)" +
-				"INNER JOIN Project.Commercial co ON co.Name = a.Commercial) " +
-				"INNER JOIN Project.Sells se ON se.Commercial = co.Name) " +
-				"INNER JOIN Project.Product p ON p.Name = se.Product) " +
+			str = 
+				"SELECT DISTINCT p.Name AS 'Favorite Products', p.Market " +
+				"FROM ((((((cs336db.consumer c " + 
+				"INNER JOIN cs336db.watches w ON w.Consumer = c.Name) "+
+				"INNER JOIN cs336db.channel ch ON  ch.Name = w.Channel) " +
+				"INNER JOIN cs336db.airs a ON a.Channel = ch.Name)" +
+				"INNER JOIN cs336db.commercial co ON co.Name = a.Commercial) " +
+				"INNER JOIN cs336db.sells se ON se.Commercial_Name = co.Name) " +
+				"INNER JOIN cs336db.product p ON p.Name = se.Product_Name) " +
 				"WHERE c.Gender = p.Gender " +
-				"AND (('ch.Target Age' - c.Age < 10) OR (c.Age - 'ch.Target Age' < 10)) " +
+				"AND (c.Age = ch.TargetAge) " +
 				"AND c.Gender = '" + gender + "' " +
-				"AND ((" + age + " - c.Age < 10) OR (c.Age - " + age + " < 10)) " +
 				"GROUP BY co.Name " + 
 				"ORDER BY COUNT(w.Consumer) desc " +
 				"LIMIT 5";

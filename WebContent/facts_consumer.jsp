@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="styles.css">
-<title>Consumer?</title>
+<title>Find Products</title>
 
 
 <!-- CSS -->
@@ -89,19 +89,19 @@ Input your information to find products you may be interested in
 
 <p>
 <label>Name
-<input type="text" name="name" placeholder="Your Name">
+<input type="text" name="name" placeholder="Your Name" required>
 </label> 
 </p>
 	
 <p>
 <label>Age
-<input type="text" name="age" placeholder="Your Age">
+<input type="text" name="age" placeholder="Your Age" required>
 </label> 
 </p>
 	
 <p>
 <label>City
-<select name="city">
+<select name="city" required>
 	<option style="color:gray" value="">Choose Closest City</option>
 	<option value="Boston">Boston</option>
 	<option value="Chicago">Chicago</option>
@@ -137,4 +137,4 @@ Female
 
 
 </body>
-</html>>
+</html>

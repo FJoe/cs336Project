@@ -37,12 +37,13 @@
 			
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT DISTINCT co.Name AS 'Best Commercials' " +
-				"FROM ((((Project.Watches w " + 
-				"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) "+
-				"INNER JOIN Project.Consumer c ON c.Name = w.Consumer) " +
-				"INNER JOIN Project.Sees s ON s.Consumer = c.Name) " +
-				"INNER JOIN Project.Commercial co ON co.Name = s.Commercial) " +
+			String str = 
+				"SELECT DISTINCT co.Name AS 'Best Commercials' " +
+				"FROM ((((cs336db.watches w " + 
+				"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
+				"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
+				"INNER JOIN cs336db.sees s ON s.Consumer = c.Name) " +
+				"INNER JOIN cs336db.commercial co ON co.Name = s.Commercial) " +
 				"WHERE ch.Genre = '" + genre + "' " +
 				"AND 'ch.Target Age' = " + targetAge + " " + 
 				"GROUP BY co.Name " + 
@@ -56,12 +57,12 @@
 			boolean empty = false;
 			if(!result.next()){
 				stmt = con.createStatement();
-				str = "SELECT DISTINCT co.Name AS 'Best Commercials' " +
-						"FROM ((((Project.Watches w " + 
-						"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) "+
-						"INNER JOIN Project.Consumer c ON c.Name = w.Consumer) " +
-						"INNER JOIN Project.Sees s ON s.Consumer = c.Name) " +
-						"INNER JOIN Project.Commercial co ON co.Name = s.Commercial) " +
+				str =   "SELECT DISTINCT co.Name AS 'Best Commercials' " +
+						"FROM ((((cs336db.watches w " + 
+						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
+						"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
+						"INNER JOIN cs336db.sees s ON s.Consumer = c.Name) " +
+						"INNER JOIN cs336db.commercial co ON co.Name = s.Commercial) " +
 						"WHERE ch.Genre = '" + genre + "' " +
 						"GROUP BY co.Name " + 
 						"ORDER BY COUNT(w.Consumer) desc " +

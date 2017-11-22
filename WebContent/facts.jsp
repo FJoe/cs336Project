@@ -106,7 +106,7 @@ Input your product data into this form to receive the best recommendations for y
 	
 <p>
 <label>Market 
-<select name="market">
+<select name="market" required>
 	<option style="color:gray" value="">Market</option>
 	<option value="Video Games">Video Games</option>
 	<option value="Toys & Games">Toys & Games</option>
@@ -137,62 +137,6 @@ Female
 
 
 
-
-
-
-
-<!--
-
-</head>
-<body>
-	<div id="links" style="width:100%">
-		<a class="link" href="index.jsp">Display Table</a>
-		<a class="link" href="add.jsp">Add Tuple</a>
-		<a class="link" href="edit.jsp">Edit Tuple</a>
-		<a class="link" href="facts.jsp">Facts</a>
-	</div>
-	<br>
-	I am a: 
-	<select id="choose_table" size=1 style="margin-bottom: 5px;">
-		<option value="product">Product</option>
-		<option value="commercial">Commercial</option>
-		<option value="consumer">Consumer</option>
-		<option value="channel">Channel</option>
-	</select>&nbsp;<br>
-	<button onclick="selectAdd()">Select</button>
-			
-	<br>
-	<br>
-	
-	<form id="product" method="post" action="add_tuple.jsp" >
-		<input type="text" value="Product" name="table" style="display:none">
-		<input type="text" placeholder="Product Name" name="Name" style="width: 200px; margin-bottom: 5px; padding:5px;">
-		<br>
-		<input type="text" placeholder="Price" name="Price" style="width: 200px; margin-bottom: 5px; padding:5px">
-		<br>
-		<select id="chooseMarket_table" size=1 style="width: 211px; margin-bottom: 5px; padding:5px;">
-			<option style="color:gray" value="null">Market</option>
-			<option value="product">Video Games</option>
-			<option value="commercial">Toys & Games</option>
-			<option value="consumer">Books</option>
-			<option value="channel">Electronics</option>
-			<option value="consumer">Camera & Photo</option>
-			<option value="channel">Clothes</option>
-		</select>&nbsp;
-		<br>
-		<input type="text" placeholder="Company" name="Company" style="width: 200px; margin-bottom: 5px;padding:5px;">
-		<br>
-		<input type="radio" name="Gender" value="Male" />Male
-		<br>
-		<input type="radio" name="Gender" value="Female" style ="margin-bottom: 5px;"/>Female
-		<br>
-		<input type="submit" value="Make my commercial!">
-	</form>
-	
-	
-	
-	
-	-->
 	
 </body>
 </html>

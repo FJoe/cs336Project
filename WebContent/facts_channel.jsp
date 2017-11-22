@@ -89,13 +89,13 @@ Input your channel data here to find which commercials your typical viewers will
 
 <p>
 <label>Channel Name
-<input type="text" name="name" placeholder="Channel Name">
+<input type="text" name="name" placeholder="Channel Name" required>
 </label> 
 </p>
 
 <p>
 <label>Genre
-<select name="genre">
+<select name="genre" required>
 	<option style="color:gray" value="">Choose Genre</option>
 	<option value="Action">Action</option>
 	<option value="Animation">Animation</option>
@@ -112,13 +112,13 @@ Input your channel data here to find which commercials your typical viewers will
 	
 <p>
 <label>Target Age
-<select name="age">
+<select name="age" required>
 	<option style="color:gray" value="">Choose Age</option>
-	<option value="3">All Ages</option>
-	<option value="13">Teen</option>
-	<option value="17">17</option>
-	<option value="20">19-30</option>
-	<option value="40">31-50</option>
+	<option value="70">All Ages</option>
+	<option value="20">Teen</option>
+	<option value="30">20-30</option>
+	<option value="40">31-40</option>
+	<option value="50">41-50</option>
 	<option value="60">51+</option>
 </select>
 </label> 

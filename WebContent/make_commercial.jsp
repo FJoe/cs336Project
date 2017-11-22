@@ -38,14 +38,15 @@
 			String city = null;
 			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT DISTINCT c.Tactic AS 'Best Tactic' " +
-				"FROM (((Project.Interested i " + 
-				"INNER JOIN Project.Product p ON i.product = p.Name) "+
-				"INNER JOIN Project.Sees s ON s.Consumer = i.consumer) " +
-				"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
+			String str = 
+				"SELECT DISTINCT c.Tactic AS 'Best Tactic' " +
+				"FROM (((cs336db.interested i " + 
+				"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
+				"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
+				"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 				"WHERE p.Market = '" + market + "' " +
 				"GROUP BY c.Tactic " + 
-				"ORDER BY COUNT(i.consumer) desc " +
+				"ORDER BY COUNT(i.Name) desc " +
 				"LIMIT 1";
 						
 			//Run the query against the database.
@@ -56,20 +57,20 @@
 				tactic = result.getString(1);
 				
 				//Make an HTML table to show the results in:
-				out.print("<p>The ideal tactic for this commercial is: " + tactic + "</p>");
+				out.print("<p>The ideal tactic for this commercial is: " + "<b>" + tactic + "</b>" + "</p>");
 			}
 
 			
 			stmt = con.createStatement();
 			
 			str = "SELECT DISTINCT c.City AS 'Best City'" +
-					"FROM (((Project.Interested i " + 
-					"INNER JOIN Project.Product p ON i.product = p.Name) "+
-					"INNER JOIN Project.Sees s ON s.Consumer = i.consumer) " +
-					"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
+					"FROM (((cs336db.interested i " + 
+					"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
+					"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
+					"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 					"WHERE p.Market = '" + market + "' " +
 					"GROUP BY c.City " +
-					"ORDER BY COUNT(i.consumer) desc " +
+					"ORDER BY COUNT(i.Name) desc " +
 					"LIMIT 1";
 			
 			result = stmt.executeQuery(str);
@@ -78,7 +79,7 @@
 			}
 			else{
 				city = result.getString(1);
-				out.print("<p>The ideal location for this commercial is: " + city + "</p>");
+				out.print("<p>The ideal location for this commercial is: " + "<b>" +city + "</b>" + "</p>");
 			}
 
 			
@@ -89,15 +90,15 @@
 			}
 			else{
 				str = "SELECT DISTINCT ch.Name AS 'Best Channel' " +
-						"FROM (((Project.Watches w " +
-						"INNER JOIN Project.Channel ch ON w.Channel = ch.Name) " +
-								"INNER JOIN Project.Sees s ON s.Consumer = w.Consumer) " +
-							"INNER JOIN Project.Commercial c ON c.Name = s.Commercial) " +
-								"WHERE c.Tactic = '" + tactic + "' "+
-								"AND c.City = '" + city + "' "+
-								"GROUP BY c.Name " +
-								"ORDER BY COUNT(w.Consumer) desc " +
-								"LIMIT 1";
+						"FROM (((cs336db.watches w " +
+						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) " +
+						"INNER JOIN cs336db.sees s ON s.Consumer = w.Consumer) " +
+						"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
+						"WHERE c.Tactic = '" + tactic + "' "+
+						"AND c.City = '" + city + "' "+
+						"GROUP BY c.Name " +
+						"ORDER BY COUNT(w.Consumer) desc " +
+						"LIMIT 1";
 				
 				result = stmt.executeQuery(str);
 				out.print("<p>The ideal channel for this commercial to air is: ");
@@ -105,7 +106,7 @@
 					out.print("<p>Sorry, an ideal channel was not found.</p>");
 				}
 				else{
-					out.print(result.getString(1) + "</p>");
+					out.print("<b>"+ result.getString(1) + "</b>" + "</p>");
 				}
 			}
 

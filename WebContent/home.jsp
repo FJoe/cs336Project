@@ -24,6 +24,7 @@
 
 
 <body>
+	<center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -35,6 +36,7 @@
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div>
+	</center>
 	<br>
 	<br>
 	<p style = "">

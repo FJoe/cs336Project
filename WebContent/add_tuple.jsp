@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add tuple result - CommercialFacts</title>
 </head>
-<body>
+<body><center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -20,7 +20,7 @@
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
-	</div>
+	</div></center>
 	
 	<%
     class NotCompleteException extends Exception{
@@ -71,6 +71,15 @@
 			}
 			if(param.get(i).equals("Target Age") || param.get(i).equals("Age")){
 				try{
+					int j = Integer.parseInt(value);
+					j = (j/10)*10;
+					if(j>70){
+						j = 70;
+					}
+					else if(j<20){
+						j = 20;
+					}
+					value = Integer.toString(j);
 					Integer.parseInt(value);
 				}catch(NumberFormatException e){
 					db.closeConnection(con);
@@ -94,7 +103,7 @@
 				Statement stmt = con.createStatement();
 				
 				//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-				String str = "SELECT * FROM Project." + table + " WHERE " + table + ".Name = \"" + value + "\"";
+				String str = "SELECT * FROM cs336db." + table + " WHERE " + table + ".Name = \"" + value + "\"";
 				
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
@@ -105,12 +114,12 @@
 				}
 			}
 			//Checks if both entities in relationship are present in respective entity table
-			else if(table.equals("Interested") || table.equals("Sells") || table.equals("Watches") || table.equals("Airs") || table.equals("Sees")){
+			else if(table.equals("interested") || table.equals("sells") || table.equals("watches") || table.equals("airs") || table.equals("sees")){
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
 				
 				//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-				String str = "SELECT * FROM Project." + param.get(i) + " WHERE Name = \"" + value + "\"";
+				String str = "SELECT * FROM cs336db." + param.get(i) + " WHERE Name = \"" + value + "\"";
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				if(!result.next()){
@@ -129,7 +138,7 @@
 		}
 		
 		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO Project" + insertTo + " VALUES " + valueTo;
+		String insert = "INSERT INTO cs336db" + insertTo + " VALUES " + valueTo;
 		PreparedStatement ps = con.prepareStatement(insert);
 		ps.executeUpdate();
 		

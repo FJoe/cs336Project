@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Database Patterns</title>
 </head>
-<body>
+<body><center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -20,7 +20,7 @@
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
-	</div>
+	</div></center>
 	<br>
 	
 	<!-- Prints Patterns -->
@@ -37,7 +37,7 @@
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
 				"WHERE p.Market = 'video games' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<p style=\"color:red\"><b>More guys are interested in video games than girls: </b></p>");
+		out.print("<p style=\"color:red\"><b>Men are much more interested in video games than women: </b></p>");
 		
 		ResultSet result = stmt.executeQuery(str);
 		ResultSetMetaData resultMD = result.getMetaData();
@@ -107,11 +107,11 @@
 		
 		stmt = con.createStatement();
 		
-		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Clothes' " + 
+		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Electronics' " + 
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
-				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
+				"WHERE p.Market = 'electronics' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<br><p style=\"color:purple\"><b>More girls are interested in clothes than guys: </b></p>");
+		out.print("<br><p style=\"color:purple\"><b>Men are slightly more interested in electronics than girls: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -145,11 +145,11 @@
 		//New
 		stmt = con.createStatement();
 		
-		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Clothes' " + 
+		str = "SELECT c.Gender AS Gender, Count(i.Name) as 'Interested in Camera & Photo' " + 
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
-				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
+				"WHERE p.Market = 'camera & photo' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<br><p style=\"color:purple\"><b>More girls are interested in clothes than guys: </b></p>");
+		out.print("<br><p style=\"color:gray\"><b>Men and Women are equally interested in Camera & Photo supplies: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();

@@ -64,7 +64,7 @@ cursor: pointer;
 </style>
 
 </head>
-<body>
+<body><center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -75,7 +75,7 @@ cursor: pointer;
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
-	</div>
+	</div></center>
 
 
 <form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">

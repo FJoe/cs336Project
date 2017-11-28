@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Delete From Table</title>
 </head>
-<body>
+<body><center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -20,20 +20,20 @@
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
-	</div>
+	</div></center>
 	<br>
 	
 	<form method="post" action="delete.jsp">
 	<select name="choose_table" size=1>
-		<option value="Airs">Airs</option>
-		<option value="Channel">Channel</option>
-		<option value="Commercial">Commercial</option>
-		<option value="Consumer">Consumer</option>
-		<option value="Interested">Interested</option>
-		<option value="Product">Product</option>
-		<option value="Sees">Sees</option>
-		<option value="Sells">Sells</option>
-		<option value="Watches">Watches</option>
+		<option value="airs">Airs</option>
+		<option value="channel">Channel</option>
+		<option value="commercial">Commercial</option>
+		<option value="consumer">Consumer</option>
+		<option value="interested">Interested</option>
+		<option value="product">Product</option>
+		<option value="sees">Sees</option>
+		<option value="sells">Sells</option>
+		<option value="watches">Watches</option>
 	</select>&nbsp;<br><input type="submit" value="Choose Table">
 	</form>
 	<p>	<b>WARNING: Deleting an entity (Channel, Commercial, Consumer, or Product) will delete any occurrences this entity appears in any relationship.</b></p>
@@ -54,13 +54,13 @@
 			if(tableToDelete != null){
 				Statement stmt = con.createStatement();
 				
-				String str = "SELECT * FROM Project." + tableToDelete + " LIMIT 1";
+				String str = "SELECT * FROM cs336db." + tableToDelete + " LIMIT 1";
 								
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				ResultSetMetaData resultMD = result.getMetaData();
 				
-				String deleteQuery = "DELETE FROM Project." + tableToDelete + " WHERE ";
+				String deleteQuery = "DELETE FROM cs336db." + tableToDelete + " WHERE ";
 				for(int i = 0; i < resultMD.getColumnCount(); i++){
 					deleteQuery = deleteQuery + resultMD.getColumnName(i+1) + "=\"" + request.getParameter(resultMD.getColumnName(i+1)) + "\"";
 					if(i != resultMD.getColumnCount() - 1)
@@ -73,40 +73,40 @@
 				
 				//UPDATE DELETED THING!!!
 				if(tableToDelete.equals("Consumer")){
-					String delete1 = "DELETE FROM Project.Interested WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					String delete1 = "DELETE FROM cs336db.interested WHERE Name = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete1);
 					ps.executeUpdate();
-					String delete2 = "DELETE FROM Project.Watches WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					String delete2 = "DELETE FROM cs336db.watches WHERE Consumer = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete2);
 					ps.executeUpdate();
-					String delete3 = "DELETE FROM Project.Sees WHERE Consumer = \"" + request.getParameter("Name") + "\"";
+					String delete3 = "DELETE FROM cs336db.sees WHERE Consumer = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete3);
 					ps.executeUpdate();
 				}
 				else if(tableToDelete.equals("Product")){
-					String delete1 = "DELETE FROM Project.Interested WHERE Product = \"" + request.getParameter("Name") + "\"";
+					String delete1 = "DELETE FROM cs336db.interested WHERE ProductName = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete1);
 					ps.executeUpdate();
-					String delete2 = "DELETE FROM Project.Sells WHERE Product = \"" + request.getParameter("Name") + "\"";
+					String delete2 = "DELETE FROM cs336db.sells WHERE Product_Name = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete2);
 					ps.executeUpdate();
 				}
 				else if(tableToDelete.equals("Commercial")){
-					String delete1 = "DELETE FROM Project.Sells WHERE Commercial = \"" + request.getParameter("Name") + "\"";
+					String delete1 = "DELETE FROM cs336db.sells WHERE Commercial_Name = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete1);
 					ps.executeUpdate();
-					String delete2 = "DELETE FROM Project.Airs WHERE Commercial = \"" + request.getParameter("Name") + "\"";
+					String delete2 = "DELETE FROM cs336db.airs WHERE Commercial = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete2);
 					ps.executeUpdate();
 				}
 				else if(tableToDelete.equals("Channel")){
-					String delete1 = "DELETE FROM Project.Sells WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					String delete1 = "DELETE FROM cs336db.sells WHERE Commercial_Name = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete1);
 					ps.executeUpdate();
-					String delete2 = "DELETE FROM Project.Airs WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					String delete2 = "DELETE FROM cs336db.airs WHERE Channel = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete2);
 					ps.executeUpdate();
-					String delete3 = "DELETE FROM Project.Sees WHERE Channel = \"" + request.getParameter("Name") + "\"";
+					String delete3 = "DELETE FROM cs336db.sees WHERE Channel = \"" + request.getParameter("Name") + "\"";
 					ps = con.prepareStatement(delete3);
 					ps.executeUpdate();
 				}
@@ -122,7 +122,7 @@
 				Statement stmt = con.createStatement();
 				
 				//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-				String str = "SELECT * FROM Project." + table;
+				String str = "SELECT * FROM cs336db." + table;
 				
 				out.print("<p>Current Table: <b>" + table + "</b>");
 				

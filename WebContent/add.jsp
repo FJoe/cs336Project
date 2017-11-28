@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add table</title>
 </head>
-<body>
+<body><center>
 	<div id="links" style="width:100%">
 		<a class="link" href="home.jsp">Home</a>
 		<a class="link" href="index.jsp">Display Table</a>
@@ -20,7 +20,7 @@
 		<a class="link" href="facts_consumer.jsp">I want to shop</a>
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
-	</div>
+	</div></center>
 	<br>
 	<select id="choose_table" size=1>
 		<option value="airs">Airs</option>
@@ -41,43 +41,94 @@
 	<p id="adding"> Adding to table: <b>airs</b></p>
 
 	<form id="airs" method="post" action="add_tuple.jsp">
-		<input type="text" value="Airs" name="table" style="display:none">
-		<input type="text" placeholder="Commercial Name" name="Commercial">
+		<input type="text" value="airs" name="table" style="display:none">
+		<input type="text" placeholder="Commercial Name" name="Commercial" required>
 		<br>
-		<input type="text" placeholder="Channel Name" name="Channel">
+		<input type="text" placeholder="Channel Name" name="Channel" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 
 	<form id="channel" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Channel" name="table" style="display:none">
-		<input type="text" placeholder="Name" name="Name">
+		<input type="text" value="channel" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name"required>
 		<br>
-		<input type="text" placeholder="Genre" name="Genre">
+		<select name="Genre" required>
+			<option style="color:gray" value="">Choose Genre</option>
+			<option value="Action">Action</option>
+			<option value="Animation">Animation</option>
+			<option value="Comedy">Comedy</option>
+			<option value="Cooking">Cooking</option>
+			<option value="Drama">Drama</option>
+			<option value="Game Show">Game Show</option>
+			<option value="Horror">Horror</option>
+			<option value="Kids">Kids</option>
+			<option value="News">News</option>
+		</select>
 		<br>
-		<input type="text" placeholder="Taget Age" name="Target Age">
+		<select name="TargetAge" required>
+			<option style="color:gray" value="">Choose Age</option>
+			<option value="70">All Ages</option>
+			<option value="20">Teen</option>
+			<option value="30">20-30</option>
+			<option value="40">31-40</option>
+			<option value="50">41-50</option>
+			<option value="60">51+</option>
+		</select>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="commercial" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Commercial" name="table" style="display:none">
-		<input type="text" placeholder="Name" name="Name">
+		<input type="text" value="commercial" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name" required>
 		<br>
-		<input type="text" placeholder="Tactic" name="Tactic">
+		<select name="Tactic" required>
+			<option style="color:gray" value="">Choose Genre</option>
+			<option value="Action">Action</option>
+			<option value="Celebrity Sponsor">Celebrity Sponsor</option>
+			<option value="Factual">Factual</option>
+			<option value="Fear">Fear</option>
+			<option value="Comedy">Comedy</option>
+			<option value="Guilt">Guilt</option>
+		</select>
 		<br>
-		<input type="text" placeholder="City" name="City">
+		<select name="City" required>
+			<option style="color:gray" value="">Choose Closest City</option>
+			<option value="Boston">Boston</option>
+			<option value="Chicago">Chicago</option>
+			<option value="Dallas">Dallas</option>
+			<option value="Detroit">Detroit</option>
+			<option value="Houston">Houston</option>
+			<option value="Los Angeles">Los Angeles</option>
+			<option value="New York">New York</option>
+			<option value="Philadelphia">Philadelphia</option>
+			<option value="Phoenix">Phoenix</option>
+			<option value="San Diego">San Diego</option>
+		</select>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 
 	<form id="consumer" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Consumer" name="table" style="display:none">
-		<input type="text" placeholder="Name" name="Name">
+		<input type="text" value="consumer" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name" required>
 		<br>
-		<input type="text" placeholder="City" name="City">
+		<select name="City" required>
+			<option style="color:gray" value="">Choose Closest City</option>
+			<option value="Boston">Boston</option>
+			<option value="Chicago">Chicago</option>
+			<option value="Dallas">Dallas</option>
+			<option value="Detroit">Detroit</option>
+			<option value="Houston">Houston</option>
+			<option value="Los Angeles">Los Angeles</option>
+			<option value="New York">New York</option>
+			<option value="Philadelphia">Philadelphia</option>
+			<option value="Phoenix">Phoenix</option>
+			<option value="San Diego">San Diego</option>
+		</select>
 		<br>
-		<input type="text" placeholder="Age" name="Age">
+		<input type="text" placeholder="Age" name="Age" required>
 		<br>
 		<input type="radio" name="Gender" value="Male"/>Male
 		<br>
@@ -89,23 +140,31 @@
 	</form>
 
 	<form id="interested" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Interested" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer">
+		<input type="text" value="interested" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer" required>
 		<br>
-		<input type="text" placeholder="Product" name="Product">
+		<input type="text" placeholder="Product" name="Product"required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="product" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Product" name="table" style="display:none">
-		<input type="text" placeholder="Name" name="Name">
+		<input type="text" value="product" name="table" style="display:none">
+		<input type="text" placeholder="Name" name="Name" required>
 		<br>
-		<input type="text" placeholder="Price" name="Price">
+		<input type="text" placeholder="Price" name="Price" required>
 		<br>
-		<input type="text" placeholder="Market" name="Market">
+		<select name="Market" required>
+			<option style="color:gray" value="">Choose Market</option>
+			<option value="Clothes">Clothes</option>
+			<option value="Books">Books</option>
+			<option value="Electronics">Electronics</option>
+			<option value="Camera & Photo">Camera & Photot</option>
+			<option value="Toys & Games">Toys & Games</option>
+			<option value="Video Games">Video Games</option>
+		</select>
 		<br>
-		<input type="text" placeholder="Company" name="Company">
+		<input type="text" placeholder="Company" name="Company" required>
 		<br>
 		<input type="radio" name="Gender" value="Male"/>Male
 		<br>
@@ -115,28 +174,28 @@
 	</form>
 
 	<form id="sees" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Sees" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer">
+		<input type="text" value="sees" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer" required>
 		<br>
-		<input type="text" placeholder="Commercial" name="Commercial">
+		<input type="text" placeholder="Commercial" name="Commercial" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="sells" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Sells" name="table" style="display:none">
-		<input type="text" placeholder="Commercial" name="Commercial">
+		<input type="text" value="sells" name="table" style="display:none">
+		<input type="text" placeholder="Commercial" name="Commercial" required>
 		<br>
-		<input type="text" placeholder="Product" name="Product">
+		<input type="text" placeholder="Product" name="Product"required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="watches" method="post" style="display:none" action="add_tuple.jsp">
-		<input type="text" value="Watches" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer">
+		<input type="text" value="watches" name="table" style="display:none">
+		<input type="text" placeholder="Consumer" name="Consumer" required>
 		<br>
-		<input type="text" placeholder="Channel" name="Channel">
+		<input type="text" placeholder="Channel" name="Channel" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>

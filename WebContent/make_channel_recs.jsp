@@ -38,7 +38,7 @@
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = 
-				"SELECT DISTINCT co.Name AS 'Best Commercials', DISTINCT COUNT(w.Consumer) AS 'Number of Consumers' " +
+				"SELECT DISTINCT co.Name AS 'Best Commercials', COUNT(w.Consumer) " +
 				"FROM ((((cs336db.watches w " + 
 				"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
 				"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
@@ -75,33 +75,15 @@
 			}
 			if(!empty){
 				//Make an HTML table to show the results in:
-				out.print("<p>Here are some commercials the consumer may be interested to watch: </p>");
-				
-				//Make an HTML table to show the results in:
-				out.print("<table>");
-		
-				//make a row
-				out.print("<tr>");
-				for(int i = 0; i < resultMD.getColumnCount(); i++){
-					out.print("<td>");
-					out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
-					out.print("</td>");
+				out.print("<p>Here are some commercials that may do well on this channel: </p>");
+			
+				while(result.next()){
+					String commercial = result.getString(1);
+					out.print("<p>A commercial that may do well on this channel is: <b><u>"+ commercial + "</u></b>" + "</p>");
+					String answer = result.getString(2);
+					out.print("<p style = \"color:#0c192d;\">Number of consumers who are interested in commercials that are on channels similar to this are:" + 
+							" <b><u>"+ answer + "</u></b></center></p>");
 				}
-				out.print("</tr>");
-		
-				//parse out the results
-				do {
-					//make a row
-					out.print("<tr>");
-					for(int i = 0; i < resultMD.getColumnCount(); i++){
-						out.print("<td>");
-						out.print(result.getString(i + 1));
-						out.print("</td>");
-					}
-					out.print("</tr>");
-		
-				}while (result.next());
-				out.print("</table>");
 			}
 			else{
 				out.print("<p>Sorry, no ideal commercials were found</p>");

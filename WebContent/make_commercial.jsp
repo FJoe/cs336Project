@@ -107,8 +107,8 @@
 				out.print("<p>Sorry, an ideal tactic# was not found.</p>");
 			}else{
 			String answer = result.getString(1);
-			out.print("Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
-									"</b> commercials: <b><u>"+ answer + "</u></b>");
+			out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
+									"</b> commercials: <b><u>"+ answer + "</u></b></p>");
 			}
 			
 			//~~~~~~~city
@@ -139,7 +139,7 @@
 					result.next();
 				}
 				city = result.getString(1);
-				out.print("<p>The ideal location for this commercial is: " + "<b>" +city + "</b>" + "</p>");
+				out.print("<p>The ideal location for this commercial is: <b><u>" +city + "</u></b></p>");
 			}
 
 			//QUERY FOR PROVING CITY
@@ -163,8 +163,8 @@
 			}
 			else{
 				String answer = result.getString(1);
-				out.print("Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
-						"</b>: <b><u>"+ answer + "</u></b>");
+				out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
+						"</b>: <b><u>"+ answer + "</u></b></p>");
 			}
 			
 			
@@ -204,7 +204,7 @@
 						result.next();
 					}
 					channel = result.getString(1);
-					out.print("<b>"+ channel + "</b>" + "</p>");
+					out.print("<b><u>"+ channel + "</u></b>" + "</p>");
 				}
 			}
 			
@@ -231,8 +231,8 @@
 			}
 			else{
 				String answer = result.getString(1);
-				out.print("Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
-						"</b>: <b><u>"+ answer + "</u></b><div></center>");
+				out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
+						"</b>: <b><u>"+ answer + "</u></b><div></center></p>");
 			}
 			
 			

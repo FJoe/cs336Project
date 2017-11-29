@@ -33,43 +33,43 @@
 		//Gets most popular Product
 		Statement stmt = con.createStatement();
 		
-		String str = "SELECT ProductName, Count(*) FROM cs336db.interested GROUP BY ProductName ORDER BY Count(*) DESC LIMIT 1";
+		String str = "SELECT ProductName, Count(*) FROM cs336db.interested GROUP BY ProductName ORDER BY Count(*) DESC LIMIT 3";
 		
-		out.print("<p>Product with most people interested in: ");
+		out.print("<p>Product with most people interested in: </p>");
 		
 		ResultSet result = stmt.executeQuery(str);
-		result.next();
-		out.print("<b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> interested consumers");
+		while(result.next())
+			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> interested consumers</p>");
 		//Gets product with most commercials
 		stmt = con.createStatement();
 		
-		str = "SELECT Product_Name, Count(*) FROM cs336db.sells GROUP BY Product_Name ORDER BY Count(*) DESC LIMIT 1";
+		str = "SELECT Product_Name, Count(*) FROM cs336db.sells GROUP BY Product_Name ORDER BY Count(*) DESC LIMIT 3";
 		
-		out.print("<p>Product with most commercials: ");
+		out.print("<br><p>Product with most commercials: </p>");
 		
 		result = stmt.executeQuery(str);
-		result.next();
-		out.print("<b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> commercials");
+		while(result.next())
+			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> commercials</p>");
 		
 		//Gets Commercial played on most channels
 		stmt = con.createStatement();
 		
-		str = "SELECT Commercial, Count(*) FROM cs336db.airs GROUP BY Commercial ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p>Commercial on most different channels: ");
+		str = "SELECT Commercial, Count(*) FROM cs336db.airs GROUP BY Commercial ORDER BY Count(*) DESC LIMIT 3";
+		out.print("<br><p>Commercial on most different channels: </p>");
 		
 		result = stmt.executeQuery(str);
-		result.next();
-		out.print("<b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different channels");
+		while(result.next())
+			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different channels</p>");
 		
 		//Gets Channel with most people watching 
 		stmt = con.createStatement();
 		
-		str = "SELECT Channel, Count(*) FROM cs336db.watches GROUP BY Channel ORDER BY Count(*) DESC LIMIT 1";
-		out.print("<p>Channel with most people watching: ");
+		str = "SELECT Channel, Count(*) FROM cs336db.watches GROUP BY Channel ORDER BY Count(*) DESC LIMIT 3";
+		out.print("<br><p>Channel with most people watching: </p>");
 		
 		result = stmt.executeQuery(str);
-		result.next();
-		out.print("<b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different Consumers watching");
+		while(result.next())
+			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different Consumers watching</p>");
 		
 		//close the connection.
 		db.closeConnection(con);

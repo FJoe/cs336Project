@@ -26,10 +26,11 @@
     
 		try {
 			String age = request.getParameter("age");
+			String origAge = age;
 			if(Integer.parseInt(age) >= 70)
 				age = "70";
 			if(Integer.parseInt(age) < 20)
-				throw new NumberFormatException();
+				age = "20";
 			int temp = ((Integer.parseInt(age))/10)*10;
 			age = Integer.toString(temp);
 			
@@ -45,7 +46,7 @@
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = 
-					"SELECT DISTINCT co.Name AS 'Best Commercials' "+
+					"SELECT DISTINCT co.Name AS 'Best Commercials', COUNT(w.Consumer) "+
 					"FROM ((((cs336db.watches w "+
 					"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name)"+ 
 					"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) "+
@@ -58,7 +59,6 @@
 						
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
-			ResultSetMetaData resultMD = result.getMetaData();
 			
 			if(!result.next()){
 				out.print("<p>Sorry, no ideal commercials were found</p>");
@@ -66,32 +66,15 @@
 			else{
 				//Make an HTML table to show the results in:
 				out.print("<p>Here are some commercials the consumer may be interested to watch: </p>");
-				
-				//Make an HTML table to show the results in:
-				out.print("<table>");
-		
-				//make a row
-				out.print("<tr>");
-				for(int i = 0; i < resultMD.getColumnCount(); i++){
-					out.print("<td>");
-					out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
-					out.print("</td>");
-				}
-				out.print("</tr>");
 		
 				//parse out the results
-				do {
-					//make a row
-					out.print("<tr>");
-					for(int i = 0; i < resultMD.getColumnCount(); i++){
-						out.print("<td>");
-						out.print(result.getString(i + 1));
-						out.print("</td>");
-					}
-					out.print("</tr>");
-		
-				}while (result.next());
-				out.print("</table>");
+				while(result.next()) {
+					String commercial = result.getString(1);
+					out.print("<p>A commercial this consumer may be interested in is: <b><u>"+ commercial + "</u></b>" + "</p>");
+					String answer = result.getString(2);
+					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in commercial<b>" + commercial + 
+							"</b> is: <b><u>"+ answer + "</u></b></center></p>");
+				}
 			}
 			
 			out.print("<br>");
@@ -104,7 +87,7 @@
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			str = 
-				"SELECT DISTINCT p.Name AS 'Favorite Products', p.Market " +
+				"SELECT DISTINCT p.Name AS 'Favorite Products', COUNT(w.Consumer) " +
 				"FROM ((((((cs336db.consumer c " + 
 				"INNER JOIN cs336db.watches w ON w.Consumer = c.Name) "+
 				"INNER JOIN cs336db.channel ch ON  ch.Name = w.Channel) " +
@@ -121,7 +104,6 @@
 						
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
-			resultMD = result.getMetaData();
 			
 			if(!result.next()){
 				out.print("<p>Sorry, no ideal product were found</p>");
@@ -129,31 +111,15 @@
 			else{
 				//Make an HTML table to show the results in:
 				out.print("<p>Here are some Products the consumer may be interested in: </p>");
-				
-				//Make an HTML table to show the results in:
-				out.print("<table>");
-		
-				//make a row
-				out.print("<tr>");
-				for(int i = 0; i < resultMD.getColumnCount(); i++){
-					out.print("<td>");
-					out.print("<b>" + resultMD.getColumnName(i + 1) + "</b>");
-					out.print("</td>");
-				}
-				out.print("</tr>");
 		
 				//parse out the results
-				do {
-					//make a row
-					out.print("<tr>");
-					for(int i = 0; i < resultMD.getColumnCount(); i++){
-						out.print("<td>");
-						out.print(result.getString(i + 1));
-						out.print("</td>");
-					}
-					out.print("</tr>");
-		
-				}while (result.next());
+				while(result.next()){
+					String product = result.getString(1);
+					out.print("<p>A product this consumer may be interested in is: <b><u>"+ product + "</u></b>" + "</p>");
+					String answer = result.getString(2);
+					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + 
+							"</b> is: <b><u>"+ answer + "</u></b></center></p>");
+				}
 			}
 
 			//close the connection.

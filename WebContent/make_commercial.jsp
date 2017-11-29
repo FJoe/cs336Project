@@ -35,27 +35,13 @@
 			
 			String market = request.getParameter("market");
 			String gender = request.getParameter("Gender");
-			int counter = 1;
 			
-			//Prints 3 sets
-			while(counter < 4){
-				String tactic = null;
-				String city = null;
-				String channel = null;
-				out.print("<center>");
-				if(counter == 1){
-					out.print("<div style = \"background-color:#f48342;\"><p>Option 1(<b>Best</b>):</p>");
-				}
-				else if(counter == 2){
-					out.print("<div style = \"background-color:#f44271;\"><p>Option 2:</p>");
-				}
-				else{
-					out.print("<div style = \"background-color:#c5f442;\"><p>Option 3:</p>");
-				}
-				
+			//Gets tactics and count
+			String[] tactics = new String[3];
+			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = 
-				"SELECT DISTINCT c.Tactic AS 'Best Tactic' " +
+				"SELECT DISTINCT c.Tactic AS 'Best Tactic', COUNT(i.Name) " +
 				"FROM ((((cs336db.interested i " + 
 				"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
 				"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
@@ -66,55 +52,34 @@
 				"GROUP BY c.Tactic " + 
 				"ORDER BY COUNT(i.Name) desc " +
 				"LIMIT 3";
-						
-			
-			
+							
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
+			
+			out.print("<center>");
+			out.print("<div style = \"background-color:#f48342;\"><p>Ideal tactics to use for your commercial:</p>");
 
 			if(!result.next()){
 				out.print("<p>Sorry, an ideal tactic was not found.</p>");
 			}else{
-				if(counter == 2){
+				for(int i = 0; i < 3; i++){
+					String tactic = result.getString(1);
+					tactics[i] = tactic;
+					out.print("<p>The ideal tactic for this commercial is: " + "<b><u>" + tactic + "</u></b>" + "</p>");
+					String answer = result.getString(2);
+					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
+							"</b> commercials: <b><u>"+ answer + "</u></b></p>");
 					result.next();
-				}
-				else if(counter == 3){
-					result.next();
-					result.next();
-				}
-				tactic = result.getString(1);
-				//Make an HTML table to show the results in:
-				out.print("<p>The ideal tactic for this commercial is: " + "<b><u>" + tactic + "</u></b>" + "</p>");
-					
-			}
-			//QUERY FOR PROVING TACTIC
-			stmt = con.createStatement();
-			str = 
-				"SELECT DISTINCT COUNT(c.Tactic) AS '# of Tactic Fans' "+
-				"FROM ((((interested i "+
-				"INNER JOIN product p ON i.ProductName = p.Name) "+
-				"INNER JOIN sees s ON s.Consumer = i.Name) "+
-				"INNER JOIN commercial c ON c.Name = s.Commercial) "+
-				"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
-				"WHERE p.Market = '"+ market +"' "+
-				"AND co.Gender = '" + gender + "' "+
-				"AND c.Tactic = '"+ tactic +"' "+
-				"GROUP BY c.Tactic "+
-				"ORDER BY COUNT(i.Name) desc";
-			
-			result = stmt.executeQuery(str);
-			if(!result.next()){
-				out.print("<p>Sorry, an ideal tactic# was not found.</p>");
-			}else{
-			String answer = result.getString(1);
-			out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
-									"</b> commercials: <b><u>"+ answer + "</u></b></p>");
+				}	
 			}
 			
-			//~~~~~~~city
-			stmt = con.createStatement();
 			
-			str = "SELECT DISTINCT c.City AS 'Best City'" +
+			//Gets city and count
+			String[] cities = new String[3];
+			out.print("<center>");
+			out.print("<div style = \"background-color:#f44271;\"><p>Ideal cities to produce the commercial:</p>");
+
+			str = "SELECT DISTINCT c.City AS 'Best City', COUNT(i.Name) " +
 					"FROM ((((cs336db.interested i " + 
 					"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
 					"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
@@ -126,56 +91,28 @@
 					"ORDER BY COUNT(i.Name) desc " +
 					"LIMIT 3";
 			
-			result = stmt.executeQuery(str);
-			if(!result.next()){
-				out.print("<p>Sorry, an ideal location was not found.</p>");
-			}
-			else{
-				if(counter == 2){
-					result.next();
-				}
-				else if(counter == 3){
-					result.next();
-					result.next();
-				}
-				city = result.getString(1);
-				out.print("<p>The ideal location for this commercial is: <b><u>" +city + "</u></b></p>");
-			}
-
-			//QUERY FOR PROVING CITY
-			stmt = con.createStatement();	
-			str = 
-				"SELECT DISTINCT COUNT(c.City) AS '# of City Fans' "+
-				"FROM ((((interested i "+
-				"INNER JOIN product p ON i.ProductName = p.Name) "+
-				"INNER JOIN sees s ON s.Consumer = i.Name) "+
-				"INNER JOIN commercial c ON c.Name = s.Commercial) "+
-				"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
-				"WHERE p.Market = '" + market + "'" +
-				"AND co.Gender = '" + gender + "' "+
-				"AND c.City = '"+ city +"' "+
-				"GROUP BY c.City "+
-				"ORDER BY COUNT(i.Name) desc";
-			
-			result = stmt.executeQuery(str);
-			if(!result.next()){
-				out.print("<p>Sorry, an ideal location was not found.</p>");
-			}
-			else{
-				String answer = result.getString(1);
-				out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
-						"</b>: <b><u>"+ answer + "</u></b></p>");
-			}
-			
-			
-			
-			//~~~
+			//Find ideal channels
 			stmt = con.createStatement();
 			
-			if(tactic == null || city == null){
-				out.print("An ideal tactic and city is needed to find the ideal channel.");
+			//Run the query against the database.
+			result = stmt.executeQuery(str);
+			String[] channels = new String[3];
+
+			if(!result.next()){
+				out.print("<p>Sorry, an ideal city was not found.</p>");
+			}else{
+				for(int i = 0; i < 3; i++){
+					String city = result.getString(1);
+					cities[i] = city;
+					out.print("<p>The ideal location for this commercial is: <b><u>" +city + "</u></b></p>");
+					String answer = result.getString(2);
+					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
+							"</b>: <b><u>"+ answer + "</u></b></p>");
+					result.next();
+				}	
 			}
-			else{
+
+			if(tactics[0] != null && cities[0] != null){
 				str = "SELECT DISTINCT ch.Name AS 'Best Channel', COUNT(w.Consumer) " +
 						"FROM ((((((cs336db.watches w " +
 						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) " +
@@ -190,53 +127,38 @@
 						"ORDER BY COUNT(w.Consumer) desc " +
 						"LIMIT 3";
 				
+				stmt = con.createStatement();
+				
+				//Run the query against the database.
 				result = stmt.executeQuery(str);
-				out.print("<p>The ideal channel for this commercial to air is: ");
+				
+				out.print("<center>");
+				out.print("<div style = \"background-color:#c5f442;\"><p>Ideal channels to host your commercial::</p>");
+
 				if(!result.next()){
 					out.print("<p>Sorry, an ideal channel was not found.</p>");
+				}else{
+					for(int i = 0; i < 3; i++){
+						String channel = result.getString(1);
+						out.print("<p>The ideal channel for this commercial to air is: ");
+						String answer = result.getString(2);
+						out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
+								"</b>: <b><u>"+ answer + "</u></b><div></center></p>");
+						result.next();
+					}	
 				}
-				else{
-					if(counter == 2){
-						result.next();
-					}
-					else if(counter == 3){
-						result.next();
-						result.next();
-					}
-					channel = result.getString(1);
-					out.print("<b><u>"+ channel + "</u></b>" + "</p>");
-				}
-			}
-			
-			//QUERY FOR PROVING CHANNEL
-			stmt = con.createStatement();	
-			str = 
-				"SELECT DISTINCT COUNT(ch.Name) AS '# of consumers watching channel' "+
-				"FROM ((((((watches w "+
-				"INNER JOIN channel ch ON w.Channel = ch.Name) "+
-				"INNER JOIN sees s ON s.Consumer = w.Consumer) "+
-				"INNER JOIN commercial c ON c.Name = s.Commercial) "+
-				"INNER JOIN cs336db.interested i ON i.Name = w.Consumer) "+
-				"INNER JOIN cs336db.product p ON p.Name = i.ProductName) "+
-				"INNER JOIN cs336db.consumer co ON co.Name = w.Consumer) "+
-				"WHERE p.Market = '" + market + "' "+
-				"AND co.Gender = '" + gender + "' "+
-				"AND ch.Name = '" + channel + "' "+
-				"GROUP BY ch.Name "+
-				"ORDER BY COUNT(w.Consumer) desc";
-			
-			result = stmt.executeQuery(str);
-			if(!result.next()){
-				out.print("<p>Sorry, an ideal location was not found.</p>");
 			}
 			else{
-				String answer = result.getString(1);
-				out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
-						"</b>: <b><u>"+ answer + "</u></b><div></center></p>");
+				out.print("An ideal tactic and city is needed to find the ideal channel.");
 			}
+
 			
 			
-			counter++;}
+	
+			
+
+			
+			
 		//close the connection.
 		db.closeConnection(con);
 		} catch (Exception e) {

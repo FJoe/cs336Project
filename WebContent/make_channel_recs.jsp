@@ -38,7 +38,7 @@
 
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = 
-				"SELECT DISTINCT co.Name AS 'Best Commercials' " +
+				"SELECT DISTINCT co.Name AS 'Best Commercials', DISTINCT COUNT(w.Consumer) AS 'Number of Consumers' " +
 				"FROM ((((cs336db.watches w " + 
 				"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
 				"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
@@ -57,7 +57,7 @@
 			boolean empty = false;
 			if(!result.next()){
 				stmt = con.createStatement();
-				str =   "SELECT DISTINCT co.Name AS 'Best Commercials' " +
+				str =   "SELECT DISTINCT co.Name AS 'Best Commercials', COUNT(w.Consumer) " +
 						"FROM ((((cs336db.watches w " + 
 						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
 						"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +

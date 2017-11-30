@@ -88,12 +88,6 @@ Input your channel data here to find which commercials your typical viewers will
 </p>
 
 <p>
-<label>Channel Name
-<input type="text" name="name" placeholder="Channel Name" required>
-</label> 
-</p>
-
-<p>
 <label>Genre
 <select name="genre" required>
 	<option style="color:gray" value="">Choose Genre</option>

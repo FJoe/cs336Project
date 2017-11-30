@@ -86,12 +86,6 @@ cursor: pointer;
 Input your information to find products you may be interested in
 </label>
 </p>
-
-<p>
-<label>Name
-<input type="text" name="name" placeholder="Your Name" required>
-</label> 
-</p>
 	
 <p>
 <label>Age

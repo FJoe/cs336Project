@@ -87,18 +87,6 @@ Input your product data into this form to receive the best recommendations for y
 </p>
 
 <p>
-<label>Product Name
-<input type="text" name="product_name" required placeholder="Product Name">
-</label> 
-</p>
-
-<p>
-<label>Company
-<input type="text" name="company" placeholder="Company" required>
-</label>
-</p>
-
-<p>
 <label>Price
 <input type="text" name="product_price" placeholder="Price" required>
 </label>

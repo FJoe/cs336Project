@@ -142,8 +142,7 @@ tr:nth-child(odd) {
 					String product = result.getString(1);
 					//out.print("<p>A product this consumer may be interested in is: <b><u>"+ product + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					//out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + 
-					//		"</b> is: <b><u>"+ answer + "</u></b></p>");
+					//out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + "</b> is: <b><u>"+ answer + "</u></b></p>");
 					out.print("<tr><td>" + product + "</td><td>" + answer + "</td></tr>");
 				}
 			}

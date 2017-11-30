@@ -114,8 +114,76 @@ tr:nth-child(odd) {
 			else{
 				out.print("<p>Sorry, no ideal commercials were found</p>");
 			}
+			
 
 			out.print("</p></table>");
+			
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+			str = "SELECT Name FROM cs336db.commercial WHERE EXISTS(" +
+					"SELECT * FROM cs336db.channel, cs336db.airs WHERE channel.genre = '" + genre + "' " +
+					"AND airs.channel = channel.name AND airs.commercial = commercial.name)";
+					
+			//Run the query against the database.
+			result = stmt.executeQuery(str);
+			out.print("<p>Select another commercial to see how many people are interested in commercials on similar channels: ");
+			out.print("<p><b>Disclaimer:</b> Not all commercials can be selected, only those that appear on a channel with the same genre. This still does not gurantee that a consumer watched the commercial and was interested in that product");
+			out.print("<form method=\"post\" action=\"make_channel_recs.jsp\">" +
+					"<select name=\"commercial\" required>");
+			while(result.next()){
+				out.print("<option value=\"" + result.getString(1) +"\">" + result.getString(1) + "</option>");
+			}
+			
+			out.print("</select>" +
+			"<input type=\"text\" value=\"" + genre + "\" name=\"genre\" style=\"display:none\">" +
+			"<input type=\"text\" value=\"" + targetAge + "\" name=\"targetAge\" style=\"display:none\">" +
+			"<input type=\"submit\" value=\"Select\">" +
+			"</form>");
+			
+			String otherCommercial = request.getParameter("commercial");
+			if(otherCommercial != null){
+				out.print("<br>");
+				if(otherCommercial.contains("'")){
+					String[] parts = otherCommercial.split("'");
+					for(int i = 0; i < parts.length - 1; i++){
+						otherCommercial = parts[i] + "''" + parts[i+1];
+					}
+				}
+				str = "SELECT COUNT(w.Consumer) " +
+						"FROM ((((cs336db.watches w " + 
+						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
+						"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
+						"INNER JOIN cs336db.sees s ON s.Consumer = c.Name) " +
+						"INNER JOIN cs336db.commercial co ON co.Name = s.Commercial) " +
+						"WHERE ch.Genre = '" + genre + "' " +
+						"AND 'ch.Target Age' = " + targetAge + " " + 
+						"AND co.name = '" + otherCommercial + "'";
+					
+				//Run the query against the database.
+				result = stmt.executeQuery(str);
+				
+				if(!result.next() || result.getString(1).equals("0")){
+					str =   "SELECT COUNT(w.Consumer) " +
+							"FROM ((((cs336db.watches w " + 
+							"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) "+
+							"INNER JOIN cs336db.consumer c ON c.Name = w.Consumer) " +
+							"INNER JOIN cs336db.sees s ON s.Consumer = c.Name) " +
+							"INNER JOIN cs336db.commercial co ON co.Name = s.Commercial) " +
+							"WHERE ch.Genre = '" + genre + "' " +
+							"AND co.name = '" + otherCommercial + "'";
+						
+					//Run the query against the database.
+					result = stmt.executeQuery(str);
+					if(result.next()){
+						out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+					}
+					else{
+						out.print("Total number of consumers who see this commercial on similar channels is <b>0</b>");
+					}
+				}
+				else
+					out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+			}
+			
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

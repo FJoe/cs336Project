@@ -70,9 +70,10 @@ tr:nth-child(odd) {
 				"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
 				"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 				"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
-				"WHERE p.Market = '" + market + "' " +
-				"AND co.Gender = '" + gender + "' "+
-				"GROUP BY c.Tactic " + 
+				"WHERE p.Market = '" + market + "' ";
+			if(!gender.equals("Unisex"))
+				str = str + "AND co.Gender = '" + gender + "' ";
+			str = str + "GROUP BY c.Tactic " + 
 				"ORDER BY COUNT(i.Name) desc " +
 				"LIMIT 5";
 							
@@ -99,6 +100,45 @@ tr:nth-child(odd) {
 			}
 			out.print("</table><br>");
 			
+			out.print("<p>Select another tactic to see how many estimated people would be persuaded: ");
+			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
+					"<select name=\"tactic\" required>" +
+					"<option style=\"color:gray\" value=\">Choose Tactic</option>\"" +
+					"<option value=\"Action\">Action</option>" +
+					"<option value=\"Celebrity Sponsor\">Celebrity Sponsor</option>" +
+					"<option value=\"Comedy\">Comedy</option>" +
+					"<option value=\"Factual\">Factual</option>" +
+					"<option value=\"Fear\">Fear</option>" +
+					"<option value=\"Guilt\">Guilt</option>" +
+				"</select>" +
+				"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
+				"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
+				"<input type=\"submit\" value=\"Add Value\">" +
+				"</form>");
+			
+			String otherTactic = request.getParameter("tactic");
+			if(otherTactic != null){
+				out.print("<br>");
+				str = 
+					"SELECT COUNT(i.Name) " +
+					"FROM ((((cs336db.interested i " + 
+					"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
+					"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
+					"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
+					"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
+					"WHERE p.Market = '" + market + "' ";
+				if(!gender.equals("Unisex"))
+					str = str + "AND co.Gender = '" + gender + "' ";
+				str = str + "AND c.Tactic = '" + otherTactic + "' "+
+					"GROUP BY c.Tactic ";			
+					
+				//Run the query against the database.
+				result = stmt.executeQuery(str);
+				
+				if(result.next())
+					out.print("Total number of <b>" + gender + "</b> consumers perusaded by tactic of <b>" + otherTactic + "</b> is <b>" + result.getString(1) + "</b>");
+			}
+			
 			
 			//Gets city and count
 			String[] cities = new String[5];
@@ -111,9 +151,10 @@ tr:nth-child(odd) {
 					"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
 					"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 					"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
-					"WHERE p.Market = '" + market + "' " +
-					"AND co.Gender = '" + gender + "' "+
-					"GROUP BY c.City " +
+					"WHERE p.Market = '" + market + "' ";
+				if(!gender.equals("Unisex"))
+					str = str + "AND co.Gender = '" + gender + "' ";
+			str = str + "GROUP BY c.City " +
 					"ORDER BY COUNT(i.Name) desc " +
 					"LIMIT 5";
 			
@@ -141,6 +182,46 @@ tr:nth-child(odd) {
 			}
 			out.print("</table><br>");
 			
+			out.print("<p>Select another city to see how many estimated people would be persuaded: ");
+			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
+					"<select name=\"city\" required>" +
+						"<option value=\"Boston\">Boston</option>" +
+						"<option value=\"Chicago\">Chicago</option>" +
+						"<option value=\"Dallas\">Dallas</option>" +
+						"<option value=\"Detroit\">Detroit</option>" +
+						"<option value=\"Houston\">Houston</option>" +
+						"<option value=\"Los Angeles\">Los Angeles</option>" +
+						"<option value=\"New York\">New York</option>" +
+						"<option value=\"Philadelphia\">Philadelphia</option>" +
+						"<option value=\"Phoenix\">Phoenix</option>" +
+						"<option value=\"San Diego\">San Diego</option>" +
+					"</select>" +
+				"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
+				"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
+				"<input type=\"submit\" value=\"Add Value\">" +
+				"</form>");
+			
+			String otherCity = request.getParameter("city");
+			if(otherCity != null){
+				out.print("<br>");
+				str = "SELECT COUNT(i.Name) " +
+						"FROM ((((cs336db.interested i " + 
+						"INNER JOIN cs336db.product p ON i.ProductName = p.Name) "+
+						"INNER JOIN cs336db.sees s ON s.Consumer = i.Name) " +
+						"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
+						"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
+						"WHERE p.Market = '" + market + "' ";
+				if(!gender.equals("Unisex"))
+						str = str + "AND co.Gender = '" + gender + "' ";
+				str = str + "AND c.City = '" + otherCity + "' ";
+					
+				//Run the query against the database.
+				result = stmt.executeQuery(str);
+				
+				if(result.next())
+					out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercial in <b>" + otherCity + "</b> is <b>" + result.getString(1) + "</b>");
+			}
+			
 			
 			//Getting ideal Channel
 			str = "SELECT DISTINCT ch.Name AS 'Best Channel', COUNT(w.Consumer) " +
@@ -151,9 +232,10 @@ tr:nth-child(odd) {
 					"INNER JOIN cs336db.interested i ON i.Name = w.Consumer) "+
 					"INNER JOIN cs336db.product p ON p.Name = i.ProductName) "+
 					"INNER JOIN cs336db.consumer co ON co.Name = w.Consumer) "+
-					"WHERE p.Market = '" + market + "' "+
-					"AND co.Gender = '" + gender + "' "+
-					"GROUP BY ch.Name " +
+					"WHERE p.Market = '" + market + "' ";
+					if(!gender.equals("Unisex"))
+						str = str + "AND co.Gender = '" + gender + "' ";
+					str = str + "GROUP BY ch.Name " +
 					"ORDER BY COUNT(w.Consumer) desc " +
 					"LIMIT 5";
 			
@@ -180,6 +262,46 @@ tr:nth-child(odd) {
 				}	
 			}
 			out.print("</table>");
+			
+			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+			String strCity = "SELECT Name FROM cs336db.channel ORDER BY Name";
+					
+			//Run the query against the database.
+			ResultSet resultCity = stmt.executeQuery(strCity);
+			out.print("<p>Select another city to see how many estimated people would be persuaded: ");
+			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
+					"<select name=\"channel\" required>");
+			while(resultCity.next()){
+				out.print("<option value=\"" + resultCity.getString(1) +"\">" + resultCity.getString(1) + "</option>");
+			}
+			out.print("</select>" +
+			"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
+			"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
+			"<input type=\"submit\" value=\"Add Value\">" +
+			"</form>");
+			
+			String otherChannel = request.getParameter("channel");
+			if(otherChannel != null){
+				out.print("<br>");
+				str = "SELECT COUNT(w.Consumer) " +
+						"FROM ((((((cs336db.watches w " +
+						"INNER JOIN cs336db.channel ch ON w.Channel = ch.Name) " +
+						"INNER JOIN cs336db.sees s ON s.Consumer = w.Consumer) " +
+						"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
+						"INNER JOIN cs336db.interested i ON i.Name = w.Consumer) "+
+						"INNER JOIN cs336db.product p ON p.Name = i.ProductName) "+
+						"INNER JOIN cs336db.consumer co ON co.Name = w.Consumer) "+
+						"WHERE p.Market = '" + market + "' ";
+						if(!gender.equals("Unisex"))
+							str = str + "AND co.Gender = '" + gender + "' ";						
+						str = str + "AND ch.Name = '" + otherChannel + "' ";
+					
+				//Run the query against the database.
+				result = stmt.executeQuery(str);
+				
+				if(result.next())
+					out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercials through channel <b>" + otherChannel + "</b> is <b>" + result.getString(1) + "</b>");
+			}
 			
 		//close the connection.
 		db.closeConnection(con);

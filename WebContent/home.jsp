@@ -56,7 +56,9 @@
     				I am a Product<br>Looking to create a Commercial</button></td></tr>
     	<tr>
 	    <td><button type="button" onclick="location.href='facts_channel.jsp';">
-	    			I am a Channel<br>Looking for the best Commercials</button></td></tr>
+	    			I am a Channel<br>Looking for the best Commercials</button></td>
+	    <td><button type="button" onclick="location.href='patterns.jsp';">
+	    			I am curious<br>And just looking for some patterns!</button></td></tr>
 	</table>
 	
 	</center>

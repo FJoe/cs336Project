@@ -42,9 +42,9 @@
 
 	<form id="airs" method="post" action="add_tuple.jsp">
 		<input type="text" value="airs" name="table" style="display:none">
-		<input type="text" placeholder="Commercial Name" name="Commercial" required>
+		<input type="text" placeholder="Commercial Name" name="commercial" required>
 		<br>
-		<input type="text" placeholder="Channel Name" name="Channel" required>
+		<input type="text" placeholder="Channel Name" name="channel" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
@@ -141,9 +141,9 @@
 
 	<form id="interested" method="post" style="display:none" action="add_tuple.jsp">
 		<input type="text" value="interested" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer" required>
+		<input type="text" placeholder="Consumer" name="consumer" required>
 		<br>
-		<input type="text" placeholder="Product" name="Product"required>
+		<input type="text" placeholder="Product" name="product"required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
@@ -175,37 +175,38 @@
 
 	<form id="sees" method="post" style="display:none" action="add_tuple.jsp">
 		<input type="text" value="sees" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer" required>
+		<input type="text" placeholder="Consumer" name="consumer" required>
 		<br>
-		<input type="text" placeholder="Commercial" name="Commercial" required>
+		<input type="text" placeholder="Commercial" name="commercial" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="sells" method="post" style="display:none" action="add_tuple.jsp">
 		<input type="text" value="sells" name="table" style="display:none">
-		<input type="text" placeholder="Commercial" name="Commercial" required>
+		<input type="text" placeholder="Commercial" name="commercial" required>
 		<br>
-		<input type="text" placeholder="Product" name="Product"required>
+		<input type="text" placeholder="Product" name="product"required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	
 	<form id="watches" method="post" style="display:none" action="add_tuple.jsp">
 		<input type="text" value="watches" name="table" style="display:none">
-		<input type="text" placeholder="Consumer" name="Consumer" required>
+		<input type="text" placeholder="Consumer" name="consumer" required>
 		<br>
-		<input type="text" placeholder="Channel" name="Channel" required>
+		<input type="text" placeholder="Channel" name="channel" required>
 		<br>
 		<input type="submit" value="Add Value">
 	</form>
 	<br>
 	<br>
 	
+	<div style = "background-color:white;border:solid;border-color:red;border-radius:5px;">
 	<p>	<b>WARNING: Adding an entity (Channel, Commercial, Consumer, or Product) is only possible if the entity name is not already present.</b></p>
 	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p>
 	<p>	<b>WARNING: Adding a relationship (Airs, Interested, Sees, Sells, or Watches) will only be added if both entities involved are present in the table.</b></p>
-	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p>
+	<p> <b>Example: Consumer a cannot be interested in product b if b is not present in the Product table</b></p></div>
 
 <script>
 function selectAdd(){

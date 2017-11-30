@@ -64,7 +64,7 @@
 			ResultSetMetaData resultMD = result.getMetaData();
 			
 			//Make an HTML table to show the results in:
-			out.print("<table>");
+			out.print("<div style = \"background-color:white;border:solid;border-radius:5px;\"><table>");
 	
 			//make a row
 			out.print("<tr>");
@@ -87,7 +87,7 @@
 				out.print("</tr>");
 	
 			}
-			out.print("</table>");
+			out.print("</table><div>");
 	
 			//close the connection.
 			db.closeConnection(con);

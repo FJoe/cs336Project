@@ -135,8 +135,8 @@
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
 			
-			out.print("<center>");
-			out.print("<div style = \"background-color:#c5f442;\"><p>Ideal <b>channels</b> to host your commercial:</p>");
+			out.print("<center><div style = \"background-color:#c5f442;\">");
+			out.print("<p>Ideal <b>channels</b> to host your commercial:");
 
 			if(!result.next()){
 				out.print("<p>Sorry, an ideal channel was not found.</p>");
@@ -146,10 +146,11 @@
 					out.print("<p>The ideal channel for this commercial to air is: <b><u>"+ channel + "</u></b>" + "</p>");
 					String answer = result.getString(2);
 					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
-							"</b>: <b><u>"+ answer + "</u></b></center></p>");
+							"</b>: <b><u>"+ answer + "</u></b>");
 					result.next();
 				}	
 			}
+			out.print("</p></div></center>");
 			
 		//close the connection.
 		db.closeConnection(con);

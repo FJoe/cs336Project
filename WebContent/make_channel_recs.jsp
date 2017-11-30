@@ -75,20 +75,21 @@
 			}
 			if(!empty){
 				//Make an HTML table to show the results in:
-				out.print("<p>Here are some commercials that may do well on this channel: </p>");
+				out.print("<center><div style = \" background-color:#c5f442;\" ><p>Here are some commercials that may do well on this channel: </p>");
 			
 				while(result.next()){
 					String commercial = result.getString(1);
 					out.print("<p>A commercial that may do well on this channel is: <b><u>"+ commercial + "</u></b>" + "</p>");
 					String answer = result.getString(2);
 					out.print("<p style = \"color:#0c192d;\">Number of consumers who are interested in commercials that are on channels similar to this are:" + 
-							" <b><u>"+ answer + "</u></b></center></p>");
+							" <b><u>"+ answer + "</u></b>");
 				}
 			}
 			else{
 				out.print("<p>Sorry, no ideal commercials were found</p>");
 			}
 
+			out.print("</p></div></center>");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

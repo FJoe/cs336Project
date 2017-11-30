@@ -36,8 +36,10 @@
 		<option value="watches">Watches</option>
 	</select>&nbsp;<br><input type="submit" value="Choose Table">
 	</form>
+	<br>
+	<div style="border:solid;border-color:red;border-radius:5px;background-color:white;">
 	<p>	<b>WARNING: Deleting an entity (Channel, Commercial, Consumer, or Product) will delete any occurrences this entity appears in any relationship.</b></p>
-	<p> <b>Example: Deleting a product will also delete any record of a consumer being interested in that product</b></p>
+	<p> <b>Example: Deleting a product will also delete any record of a consumer being interested in that product</b></p></div>
 
 	<br>
 
@@ -69,7 +71,7 @@
 								
 				PreparedStatement ps = con.prepareStatement(deleteQuery);
 				ps.executeUpdate();
-				out.print("<p>Successfully deleted!</p>");
+				out.print("<p style=\"background-color:yellow;border:solid;border-radius:5px;font-size:120%;\">Successfully deleted!</p>");
 				
 				//UPDATE DELETED THING!!!
 				if(tableToDelete.equals("Consumer")){
@@ -125,7 +127,7 @@
 				String str = "SELECT * FROM cs336db." + table;
 				
 				out.print("<p>Current Table: <b>" + table + "</b>");
-				
+				out.print("<div style= \"background-color:white;border:solid;border-radius:5px;\" > ");
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
 				ResultSetMetaData resultMD = result.getMetaData();
@@ -162,7 +164,7 @@
 					out.print("</tr>");
 		
 				}
-				out.print("</table>");
+				out.print("</table></div>");
 		
 				//close the connection.
 				db.closeConnection(con);

@@ -65,7 +65,7 @@
 			}
 			else{
 				//Make an HTML table to show the results in:
-				out.print("<p>Here are some commercials the consumer may be interested to watch: </p>");
+				out.print("<center> <div style = \" background-color:#f44271; \" ><p>Here are some commercials the consumer may be interested to watch: </p>");
 		
 				//parse out the results
 				while(result.next()) {
@@ -73,11 +73,11 @@
 					out.print("<p>A commercial this consumer may be interested in is: <b><u>"+ commercial + "</u></b>" + "</p>");
 					String answer = result.getString(2);
 					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in commercial<b>" + commercial + 
-							"</b> is: <b><u>"+ answer + "</u></b></center></p>");
+							"</b> is: <b><u>"+ answer + "</u></b></p>");
 				}
 			}
 			
-			out.print("<br>");
+			out.print("</div></center><br>");
 			
 			//Create a SQL statement
 			stmt = con.createStatement();
@@ -110,7 +110,7 @@
 			}
 			else{
 				//Make an HTML table to show the results in:
-				out.print("<p>Here are some Products the consumer may be interested in: </p>");
+				out.print( " <center><div style = \"background-color:#f48342;\" ><p>Here are some Products the consumer may be interested in: </p>");
 		
 				//parse out the results
 				while(result.next()){
@@ -118,10 +118,11 @@
 					out.print("<p>A product this consumer may be interested in is: <b><u>"+ product + "</u></b>" + "</p>");
 					String answer = result.getString(2);
 					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + 
-							"</b> is: <b><u>"+ answer + "</u></b></center></p>");
+							"</b> is: <b><u>"+ answer + "</u></b></p>");
 				}
 			}
-
+	
+			out.print(" </div></center> ");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

@@ -98,12 +98,12 @@
 			}
 			
 			//Checks if Name of entity is not already present
-			if(param.get(i).equals("Name") && (table.equals("Product") || table.equals("Consumer") || table.equals("Commercial") || table.equals("Channel"))){
+			if(param.get(i).equals("Name") && (table.equals("product") || table.equals("consumer") || table.equals("commercial") || table.equals("channel"))){
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
 				
 				//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-				String str = "SELECT * FROM cs336db." + table + " WHERE " + table + ".Name = \"" + value + "\"";
+				String str = "SELECT * FROM cs336db." + table.toLowerCase() + " WHERE " + table.toLowerCase() + ".Name = \"" + value + "\"";
 				
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(str);
@@ -145,7 +145,7 @@
 		//close the connection.
 		db.closeConnection(con);
 		con.close();
-		out.print("<p>Successfully inserted!</p>");
+		out.print("<p style=\"background-color:white;border:solid;border-radius:5px;\">Successfully inserted!</p>");
 	}
 	catch(NumberFormatException e){
 		out.print("<p>ERROR: Incorrect Number Format (Number was not inputted)</p>");

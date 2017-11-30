@@ -21,7 +21,7 @@
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div></center>
-	
+	<br>
 	<!-- Prints most popular Product, Commercial, and Channel -->
 	<%
     
@@ -35,42 +35,43 @@
 		
 		String str = "SELECT ProductName, Count(*) FROM cs336db.interested GROUP BY ProductName ORDER BY Count(*) DESC LIMIT 3";
 		
-		out.print("<p>Product with most people interested in: </p>");
+		out.print("<center><div style = \"background-color:white;border:solid;border-radius:5px; \" ><p>Product with most people interested in: </p>");
 		
 		ResultSet result = stmt.executeQuery(str);
 		while(result.next())
 			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> interested consumers</p>");
+		out.print("</div></center>");
 		//Gets product with most commercials
 		stmt = con.createStatement();
 		
 		str = "SELECT Product_Name, Count(*) FROM cs336db.sells GROUP BY Product_Name ORDER BY Count(*) DESC LIMIT 3";
 		
-		out.print("<br><p>Product with most commercials: </p>");
+		out.print("<br><center><div style = \"background-color:white;border:solid;border-radius:5px; \" ><p>Product with most commercials: </p>");
 		
 		result = stmt.executeQuery(str);
 		while(result.next())
 			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> commercials</p>");
-		
+		out.print("</div></center>");
 		//Gets Commercial played on most channels
 		stmt = con.createStatement();
 		
 		str = "SELECT Commercial, Count(*) FROM cs336db.airs GROUP BY Commercial ORDER BY Count(*) DESC LIMIT 3";
-		out.print("<br><p>Commercial on most different channels: </p>");
+		out.print("<br><center><div style = \"background-color:white;border:solid;border-radius:5px; \" ><p>Commercial on most different channels: </p>");
 		
 		result = stmt.executeQuery(str);
 		while(result.next())
 			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different channels</p>");
-		
+		out.print("</div></center>");
 		//Gets Channel with most people watching 
 		stmt = con.createStatement();
 		
 		str = "SELECT Channel, Count(*) FROM cs336db.watches GROUP BY Channel ORDER BY Count(*) DESC LIMIT 3";
-		out.print("<br><p>Channel with most people watching: </p>");
+		out.print("<br><center><div style = \"background-color:white;border:solid;border-radius:5px; \" ><p>Channel with most people watching: </p>");
 		
 		result = stmt.executeQuery(str);
 		while(result.next())
 			out.print("<p><b>" + result.getString(1) + "</b> with <b>" + result.getString(2) + "</b> different Consumers watching</p>");
-		
+		out.print("</div></center>");
 		//close the connection.
 		db.closeConnection(con);
 		con.close();
@@ -80,6 +81,7 @@
 	%>
 	<br>
 	<br>
+	<center><div style="background-color:#ffbff4; border:solid;border-radius:5px;">
 	<p>Select an entity table to select a specific tuple and find it's statistics</p>
 	
 	<form method="post" action="most_popular.jsp">
@@ -229,6 +231,7 @@
 				out.print("<p id=\"indent\"><b>" + result.getString(1) + "</b> commercials air on this channel</p><br>");	
 			}
 		}
+		out.print("</div></center>");
 		db.closeConnection(con);
 		con.close();
 	}catch(Exception e){

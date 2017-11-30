@@ -37,7 +37,7 @@
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
 				"WHERE p.Market = 'video games' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<p style=\"color:red\"><b>Men are much more interested in video games than women: </b></p>");
+		out.print("<center><div style = \" background-color:white;border:solid;border-radius:5px;\" ><p style=\"color:red\"><b>Men are much more interested in video games than women: </b></p>");
 		
 		ResultSet result = stmt.executeQuery(str);
 		ResultSetMetaData resultMD = result.getMetaData();
@@ -66,7 +66,7 @@
 			out.print("</tr>");
 
 		}
-		out.print("</table>");
+		out.print("</table></div></center>");
 		
 		stmt = con.createStatement();
 		
@@ -74,7 +74,7 @@
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
 				"WHERE p.Market = 'clothes' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<br><p style=\"color:green\"><b>More girls are interested in clothes than guys: </b></p>");
+		out.print("<br><center><div style = \" background-color:white;border:solid;border-radius:5px;\" ><p style=\"color:green\"><b>More girls are interested in clothes than guys: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -103,7 +103,7 @@
 			out.print("</tr>");
 
 		}
-		out.print("</table>");
+		out.print("</table></div></center>");
 		
 		stmt = con.createStatement();
 		
@@ -111,7 +111,7 @@
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
 				"WHERE p.Market = 'electronics' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<br><p style=\"color:purple\"><b>Men are slightly more interested in electronics than girls: </b></p>");
+		out.print("<br><center><div style = \" background-color:white;border:solid;border-radius:5px;\" ><p style=\"color:purple\"><b>Men are slightly more interested in electronics than girls: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -140,7 +140,7 @@
 			out.print("</tr>");
 
 		}
-		out.print("</table>");
+		out.print("</table></div></center>");
 		
 		//New
 		stmt = con.createStatement();
@@ -149,7 +149,7 @@
 				"FROM cs336db.consumer c JOIN cs336db.interested i JOIN cs336db.product p " +
 				"WHERE p.Market = 'camera & photo' AND i.ProductName = p.Name AND c.Name = i.Name GROUP BY c.Gender";
 		
-		out.print("<br><p style=\"color:gray\"><b>Men and Women are equally interested in Camera & Photo supplies: </b></p>");
+		out.print("<br><center><div style = \" background-color:white;border:solid;border-radius:5px;\" ><p style=\"color:gray\"><b>Men and Women are equally interested in Camera & Photo supplies: </b></p>");
 		
 		result = stmt.executeQuery(str);
 		resultMD = result.getMetaData();
@@ -178,7 +178,7 @@
 			out.print("</tr>");
 
 		}
-		out.print("</table>");
+		out.print("</table></div></center>");
 		
 		
 		

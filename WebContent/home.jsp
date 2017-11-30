@@ -11,13 +11,14 @@
 <style>
 .buttons { 
   width: 60%;
-  height: 20%;
+  height: 40%;
   table-layout: fixed;
- 
+  
 
 }
 .buttons button { 
   width: 100%;
+  font-size:100%;
 }
 </style>
 
@@ -41,22 +42,18 @@
 	<br>
 	<p style = "">
 	<center>
-	<img src="https://preview.ibb.co/fUj5hm/title.gif" alt="title" border="0"></a>
-	
-	
-	<br>
-	<img src ="https://78.media.tumblr.com/a981475cb25e1a2123d5bd10e90b6117/tumblr_ms2kuucJdD1qkjjfoo1_500.gif"
-			width="250 height="300">
+	<img src="https://i.imgur.com/GBFADS9.png" alt="title" border="0"></a>
+	<br><br><br>
 			
 	<table class="buttons">
     	<tr><td>
     	<button type="button" onclick="location.href='facts_consumer.jsp';" >
-    				I am a Consumer<br>Looking for Products</button></td>
+    				I want to<br>Look for Products and Commercials</button></td>
     	<td><button type="button" onclick="location.href='facts.jsp';">
-    				I am a Product<br>Looking to create a Commercial</button></td></tr>
+    				I want to<br>Create a Commercial for my Product</button></td></tr>
     	<tr>
 	    <td><button type="button" onclick="location.href='facts_channel.jsp';">
-	    			I am a Channel<br>Looking for the best Commercials</button></td>
+	    			I want to<br>Find the best Commercials for my Channel</button></td>
 	    <td><button type="button" onclick="location.href='patterns.jsp';">
 	    			I am curious<br>And just looking for some patterns!</button></td></tr>
 	</table>

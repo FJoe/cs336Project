@@ -8,6 +8,29 @@
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Make Commercial</title>
+
+<style>
+table {    
+	font-family: arial, sans-serif;    
+	border-collapse: collapse;    
+	width: 100%;
+}
+td, th {    
+	border: 1px solid #dddddd;    
+	text-align: left;    
+	padding: 8px;
+}
+tr:nth-child(even) {    
+	background-color: #dddddd;
+}
+tr:nth-child(odd) {    
+	background-color: white;
+}
+
+
+
+</style>
+
 </head>
 <body><center>
 	<div id="links" style="width:100%">
@@ -21,6 +44,7 @@
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div></center>
+	<br>
 	
 	<%
     
@@ -65,19 +89,20 @@
 			}
 			else{
 				//Make an HTML table to show the results in:
-				out.print("<center> <div style = \" background-color:#f44271; \" ><p>Here are some commercials the consumer may be interested to watch: </p>");
-		
+				//out.print("<center> <div style = \" background-color:#f44271; \" ><p>Here are some commercials the consumer may be interested to watch: </p>");
+				out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Commercials the consumer may be interested to watch</th><th>Number of consumers around the age of <b>" + origAge + "</b> who see commercial</th></tr>");
 				//parse out the results
 				while(result.next()) {
 					String commercial = result.getString(1);
-					out.print("<p>A commercial this consumer may be interested in is: <b><u>"+ commercial + "</u></b>" + "</p>");
+					//out.print("<p>A commercial this consumer may be interested in is: <b><u>"+ commercial + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in commercial<b>" + commercial + 
-							"</b> is: <b><u>"+ answer + "</u></b></p>");
+					//out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in commercial<b>" + commercial + 
+					//		"</b> is: <b><u>"+ answer + "</u></b></p>");
+					out.print("<tr><td><u>" + commercial + "</u></td><td>" + answer + "</td></tr>");
 				}
 			}
 			
-			out.print("</div></center><br>");
+			out.print("</table><br>");
 			
 			//Create a SQL statement
 			stmt = con.createStatement();
@@ -110,19 +135,20 @@
 			}
 			else{
 				//Make an HTML table to show the results in:
-				out.print( " <center><div style = \"background-color:#f48342;\" ><p>Here are some Products the consumer may be interested in: </p>");
-		
+				//out.print( " <center><div style = \"background-color:#f48342;\" ><p>Here are some Products the consumer may be interested in: </p>");
+				out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Products the consumer may be interested in</th><th>Number of consumers around the age of " + origAge + " interested in product</th></tr>");
 				//parse out the results
 				while(result.next()){
 					String product = result.getString(1);
-					out.print("<p>A product this consumer may be interested in is: <b><u>"+ product + "</u></b>" + "</p>");
+					//out.print("<p>A product this consumer may be interested in is: <b><u>"+ product + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + 
-							"</b> is: <b><u>"+ answer + "</u></b></p>");
+					//out.print("<p style = \"color:#0c192d;\">Number of consumers around the age of " + origAge + " interested in product <b>" + product + 
+					//		"</b> is: <b><u>"+ answer + "</u></b></p>");
+					out.print("<tr><td>" + product + "</td><td>" + answer + "</td></tr>");
 				}
 			}
 	
-			out.print(" </div></center> ");
+			out.print("</table>");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

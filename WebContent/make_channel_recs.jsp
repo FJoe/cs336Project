@@ -8,6 +8,29 @@
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Make Commercial</title>
+
+<style>
+table {    
+	font-family: arial, sans-serif;    
+	border-collapse: collapse;    
+	width: 100%;
+}
+td, th {    
+	border: 1px solid #dddddd;    
+	text-align: left;    
+	padding: 8px;
+}
+tr:nth-child(even) {    
+	background-color: #dddddd;
+}
+tr:nth-child(odd) {    
+	background-color: white;
+}
+
+
+
+</style>
+
 </head>
 <body><center>
 	<div id="links" style="width:100%">
@@ -75,21 +98,23 @@
 			}
 			if(!empty){
 				//Make an HTML table to show the results in:
-				out.print("<center><div style = \" background-color:#c5f442;\" ><p>Here are some commercials that may do well on this channel: </p>");
-			
+				out.print("<table style=\"border:solid;border-width:2px;\"><tr><th>Commercials that may do well on this channel</th>"+
+				" <th>Number of consumers who are interested in commercials that are on channels similar to this</th></tr>");
+				
 				while(result.next()){
 					String commercial = result.getString(1);
-					out.print("<p>A commercial that may do well on this channel is: <b><u>"+ commercial + "</u></b>" + "</p>");
+					//out.print("<p>A commercial that may do well on this channel is: <b><u>"+ commercial + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of consumers who are interested in commercials that are on channels similar to this are:" + 
-							" <b><u>"+ answer + "</u></b>");
+					//out.print("<p style = \"color:#0c192d;\">Number of consumers who are interested in commercials that are on channels similar to this are:" + 
+					//		" <b><u>"+ answer + "</u></b>");
+					out.print("<tr><td><u>" + commercial + "</u></td><td>" + answer + "</td></tr>");
 				}
 			}
 			else{
 				out.print("<p>Sorry, no ideal commercials were found</p>");
 			}
 
-			out.print("</p></div></center>");
+			out.print("</p></table>");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

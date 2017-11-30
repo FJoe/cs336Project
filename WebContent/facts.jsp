@@ -88,7 +88,7 @@ Input your product data into this form to receive the best recommendations for y
 
 <p>
 <label>Price
-<input type="text" name="product_price" placeholder="Price" required>
+<input type="text" name="product_price" placeholder="19.99" required>
 </label>
 </p>
 	

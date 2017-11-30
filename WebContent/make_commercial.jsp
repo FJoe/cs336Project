@@ -8,6 +8,28 @@
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Make Commercial</title>
+
+<style>
+table {    
+	font-family: arial, sans-serif;    
+	border-collapse: collapse;    
+	width: 100%;
+}
+td, th {    
+	border: 1px solid #dddddd;    
+	text-align: left;    
+	padding: 8px;
+}
+tr:nth-child(even) {    
+	background-color: #dddddd;
+}
+tr:nth-child(odd) {    
+	background-color: white;
+}
+
+
+
+</style>
 </head>
 <body><center>
 	<div id="links" style="width:100%">
@@ -21,6 +43,7 @@
 		<a class="link" href="most_popular.jsp">Entity Stats</a>
 		<a class="link" href="patterns.jsp">Patterns</a>
 	</div></center>
+	<br>
 	
 	<%
     
@@ -37,7 +60,7 @@
 			String gender = request.getParameter("Gender");
 			
 			//Gets tactics and count
-			String[] tactics = new String[3];
+			String[] tactics = new String[5];
 			
 			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 			String str = 
@@ -51,34 +74,36 @@
 				"AND co.Gender = '" + gender + "' "+
 				"GROUP BY c.Tactic " + 
 				"ORDER BY COUNT(i.Name) desc " +
-				"LIMIT 3";
+				"LIMIT 5";
 							
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 			
-			out.print("<center>");
-			out.print("<div style = \"background-color:#f48342;\"><p>Ideal <b>tactics</b> to use for your commercial:</p>");
+			
+			//out.print("<p>Ideal <b>tactics</b> to use for your commercial:</p>");
 
 			if(!result.next()){
 				out.print("<p>Sorry, an ideal tactic was not found.</p>");
 			}else{
-				for(int i = 0; i < 3; i++){
+				out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Ideal tactics for this commercial</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> and persuaded by tactic</th></tr> ");
+				for(int i = 0; i < 5; i++){
 					String tactic = result.getString(1);
 					tactics[i] = tactic;
-					out.print("<p>The ideal tactic for this commercial is: " + "<b><u>" + tactic + "</u></b>" + "</p>");
+					//out.print("<p>The ideal tactic for this commercial is: " + "<b><u>" + tactic + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
-							"</b> commercials: <b><u>"+ answer + "</u></b></p>");
+					//out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and persuaded by <b>" + tactic + 
+					//		"</b> commercials: <b><u>"+ answer + "</u></b></p>");
+					out.print("<tr><td>" + tactic + "</td><td>" + answer + "</td></tr>");
 					result.next();
 				}	
 			}
-			out.print("</div>");
+			out.print("</table><br>");
 			
 			
 			//Gets city and count
-			String[] cities = new String[3];
-			out.print("<center>");
-			out.print("<div style = \"background-color:#f44271;\"><p>Ideal <b>cities</b> to produce the commercial:</p>");
+			String[] cities = new String[5];
+			
+			//out.print("<p>Ideal <b>cities</b> to produce the commercial:</p>");
 
 			str = "SELECT DISTINCT c.City AS 'Best City', COUNT(i.Name) " +
 					"FROM ((((cs336db.interested i " + 
@@ -90,29 +115,31 @@
 					"AND co.Gender = '" + gender + "' "+
 					"GROUP BY c.City " +
 					"ORDER BY COUNT(i.Name) desc " +
-					"LIMIT 3";
+					"LIMIT 5";
 			
 			//Find ideal channels
 			stmt = con.createStatement();
 			
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
-			String[] channels = new String[3];
+			String[] channels = new String[5];
 
 			if(!result.next()){
 				out.print("<p>Sorry, an ideal city was not found.</p>");
 			}else{
-				for(int i = 0; i < 3; i++){
+				out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Ideal locations for this commercial</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> and live near city</th></tr>");
+				for(int i = 0; i < 5; i++){
 					String city = result.getString(1);
 					cities[i] = city;
-					out.print("<p>The ideal location for this commercial is: <b><u>" +city + "</u></b></p>");
+					//out.print("<p>The ideal location for this commercial is: <b><u>" +city + "</u></b></p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
-							"</b>: <b><u>"+ answer + "</u></b></p>");
+					//out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and living by <b>" + city + 
+					//		"</b>: <b><u>"+ answer + "</u></b></p>");
+					out.print(" <tr><td>" + city + "</td><td>" + answer + "</td></tr> ");
 					result.next();
 				}	
 			}
-			out.print("</div>");
+			out.print("</table><br>");
 			
 			
 			//Getting ideal Channel
@@ -128,29 +155,31 @@
 					"AND co.Gender = '" + gender + "' "+
 					"GROUP BY ch.Name " +
 					"ORDER BY COUNT(w.Consumer) desc " +
-					"LIMIT 3";
+					"LIMIT 5";
 			
 			stmt = con.createStatement();
 			
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
 			
-			out.print("<center><div style = \"background-color:#c5f442;\">");
-			out.print("<p>Ideal <b>channels</b> to host your commercial:");
+			//out.print("<center><div style = \"background-color:#c5f442;\">");
+			//out.print("<p>Ideal <b>channels</b> to host your commercial:");
 
 			if(!result.next()){
 				out.print("<p>Sorry, an ideal channel was not found.</p>");
 			}else{
-				for(int i = 0; i < 3; i++){
+				out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Ideal channels to air your commercial</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching channel<b></th></tr>");
+				for(int i = 0; i < 5; i++){
 					String channel = result.getString(1);
-					out.print("<p>The ideal channel for this commercial to air is: <b><u>"+ channel + "</u></b>" + "</p>");
+					//out.print("<p>The ideal channel for this commercial to air is: <b><u>"+ channel + "</u></b>" + "</p>");
 					String answer = result.getString(2);
-					out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
-							"</b>: <b><u>"+ answer + "</u></b>");
+					//out.print("<p style = \"color:#0c192d;\">Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> products and watching: <b>" + channel + 
+					//		"</b>: <b><u>"+ answer + "</u></b>");
+					out.print("<tr><td>" + channel + "</td><td>" + answer + "</td></tr>");
 					result.next();
 				}	
 			}
-			out.print("</p></div></center>");
+			out.print("</table>");
 			
 		//close the connection.
 		db.closeConnection(con);

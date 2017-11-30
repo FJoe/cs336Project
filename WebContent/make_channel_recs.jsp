@@ -101,13 +101,14 @@ tr:nth-child(odd) {
 				out.print("<table style=\"border:solid;border-width:2px;\"><tr><th>Commercials that may do well on this channel</th>"+
 				" <th>Number of consumers who are interested in commercials that are on channels similar to this</th></tr>");
 				
-				while(result.next()){
+				for(int j = 0;j<5;j++){
 					String commercial = result.getString(1);
 					//out.print("<p>A commercial that may do well on this channel is: <b><u>"+ commercial + "</u></b>" + "</p>");
 					String answer = result.getString(2);
 					//out.print("<p style = \"color:#0c192d;\">Number of consumers who are interested in commercials that are on channels similar to this are:" + 
 					//		" <b><u>"+ answer + "</u></b>");
 					out.print("<tr><td><u>" + commercial + "</u></td><td>" + answer + "</td></tr>");
+					result.next();
 				}
 			}
 			else{

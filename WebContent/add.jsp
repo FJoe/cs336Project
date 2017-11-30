@@ -83,13 +83,13 @@
 		<input type="text" value="commercial" name="table" style="display:none">
 		<input type="text" placeholder="Name" name="Name" required>
 		<br>
-		<select name="Tactic" required>
+		<select name="Tactic " required>
 			<option style="color:gray" value="">Choose Genre</option>
 			<option value="Action">Action</option>
 			<option value="Celebrity Sponsor">Celebrity Sponsor</option>
+			<option value="Comedy">Comedy</option>
 			<option value="Factual">Factual</option>
 			<option value="Fear">Fear</option>
-			<option value="Comedy">Comedy</option>
 			<option value="Guilt">Guilt</option>
 		</select>
 		<br>

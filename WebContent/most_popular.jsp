@@ -84,7 +84,7 @@
 	<center><div style="background-color:#ffbff4; border:solid;border-radius:5px;">
 	<p>Select an entity table to select a specific tuple and find it's statistics</p>
 	
-	<form method="post" action="most_popular.jsp">
+<form class="myForm" action="make_commercial.jsp" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
 		<select name="table" size=1 required>
 			<option style="color:gray" value="">Choose Entity</option>
 			<option value="Channel">Channel</option>

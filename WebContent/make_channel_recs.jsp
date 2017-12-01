@@ -125,7 +125,7 @@ tr:nth-child(odd) {
 					
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
-			out.print("<p>Select another commercial to see how many people are interested in commercials on similar channels: ");
+			out.print("<br><div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another commercial to see how many people are interested in commercials on similar channels: ");
 			out.print("<p><b>Disclaimer:</b> Not all commercials can be selected, only those that appear on a channel with the same genre. This still does not gurantee that a consumer watched the commercial and was interested in that product");
 			out.print("<form method=\"post\" action=\"make_channel_recs.jsp\">" +
 					"<select name=\"commercial\" required>");
@@ -174,16 +174,19 @@ tr:nth-child(odd) {
 					//Run the query against the database.
 					result = stmt.executeQuery(str);
 					if(result.next()){
-						out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+						//out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+						out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Commercial</th><th>Number of consumers who see this commercial on similar channels</th></tr><tr><td><u>" + otherCommercial + "</u></td><td>" + result.getString(1) + "</td></tr></table>");
 					}
 					else{
-						out.print("Total number of consumers who see this commercial on similar channels is <b>0</b>");
+						//out.print("Total number of consumers who see this commercial on similar channels is <b>0</b>");
+						out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Commercial</th><th>Number of consumers who see this commercial on similar channels</th></tr><tr><td><u>" + otherCommercial + "</u></td><td>0</td></tr></table>");
 					}
 				}
 				else
-					out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of consumers who see this commercial on similar channels is <b>" + result.getString(1) + "</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\"><tr><th>Commercial</th><th>Number of consumers who see this commercial on similar channels</th></tr><tr><td><u>" + otherCommercial + "</u></td><td>" + result.getString(1) + "</td></tr></table>");
 			}
-			
+			out.print("</div>");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

@@ -111,7 +111,7 @@ tr:nth-child(odd) {
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
 			
-			out.print("<p>Select another commercial to see how many people are interested in commercials on similar channels: ");
+			out.print("<div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another commercial to see how many people are interested in commercials on similar channels: ");
 			out.print("<p><b>Disclaimer:</b> Not all commercials can be selected, only those that someone of similar age has seen. This still does not gurantee that that consumer watched the commercial AND was interested in that product");
 			out.print("<form method=\"post\" action=\"make_recommendations.jsp\">" +
 					"<select name=\"commercial\" required>");
@@ -145,9 +145,10 @@ tr:nth-child(odd) {
 				//Run the query against the database.
 				result = stmt.executeQuery(str);
 				if(result.next())
-					out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in commercial <b>" + otherCommercial + "</b> is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in commercial <b>" + otherCommercial + "</b> is <b>" + result.getString(1) + "</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Commercial</th><th>Number of <b>" + gender + "</b> consumers of similar age who are interested in commercial</th></tr><tr><td>" + otherCommercial + "</td><td>" + result.getString(1) + "</td></tr></table>");
 			}
-			
+			out.print("</div><br>");
 			//Create a SQL statement
 			stmt = con.createStatement();
 
@@ -197,7 +198,7 @@ tr:nth-child(odd) {
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
 			
-			out.print("<p>Select another product to see how many people of similar age are interested in it: ");
+			out.print("<div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another product to see how many people of similar age are interested in it: ");
 			out.print("<form method=\"post\" action=\"make_recommendations.jsp\">" +
 					"<select name=\"product\" required>");
 			
@@ -239,11 +240,13 @@ tr:nth-child(odd) {
 				//Run the query against the database.
 				result = stmt.executeQuery(str);
 				if(result.next())
-					out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in product <b>" + otherProduct + "</b> is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in product <b>" + otherProduct + "</b> is <b>" + result.getString(1) + "</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Product</th><th>Number of <b>" + gender + "</b> consumers of similar age who are interested in product</th></tr><tr><td>" + otherProduct + "</td><td>" + result.getString(1) + "</td></tr></table>");
 				else
-					out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in product <b>" + otherProduct + "</b> is <b>0</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers of similar age who are interested in product <b>" + otherProduct + "</b> is <b>0</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Product</th><th>Number of <b>" + gender + "</b> consumers of similar age who are interested in product</th></tr><tr><td>" + otherProduct + "</td><td>0</td></tr></table>");
 			}
-			
+			out.print("</div>");
 			//close the connection.
 			db.closeConnection(con);
 		} catch(NumberFormatException e){

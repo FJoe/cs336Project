@@ -27,8 +27,6 @@ tr:nth-child(odd) {
 	background-color: white;
 }
 
-
-
 </style>
 </head>
 <body><center>
@@ -58,7 +56,9 @@ tr:nth-child(odd) {
 			
 			String market = request.getParameter("market");
 			String gender = request.getParameter("Gender");
-			
+			if(gender.equals("Unisex")){
+				gender = "all";
+			}
 			//Gets tactics and count
 			String[] tactics = new String[5];
 			
@@ -71,7 +71,7 @@ tr:nth-child(odd) {
 				"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 				"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
 				"WHERE p.Market = '" + market + "' ";
-			if(!gender.equals("Unisex"))
+			if(!gender.equals("all"))
 				str = str + "AND co.Gender = '" + gender + "' ";
 			str = str + "GROUP BY c.Tactic " + 
 				"ORDER BY COUNT(i.Name) desc " +
@@ -100,7 +100,7 @@ tr:nth-child(odd) {
 			}
 			out.print("</table><br>");
 			
-			out.print("<p>Select another tactic to see how many estimated people would be persuaded: ");
+			out.print("<div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another tactic to see how many estimated people would be persuaded: ");
 			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
 					"<select name=\"tactic\" required>" +
 					"<option style=\"color:gray\" value=\">Choose Tactic</option>\"" +
@@ -127,7 +127,7 @@ tr:nth-child(odd) {
 					"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 					"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
 					"WHERE p.Market = '" + market + "' ";
-				if(!gender.equals("Unisex"))
+				if(!gender.equals("all"))
 					str = str + "AND co.Gender = '" + gender + "' ";
 				str = str + "AND c.Tactic = '" + otherTactic + "' "+
 					"GROUP BY c.Tactic ";			
@@ -136,10 +136,10 @@ tr:nth-child(odd) {
 				result = stmt.executeQuery(str);
 				
 				if(result.next())
-					out.print("Total number of <b>" + gender + "</b> consumers perusaded by tactic of <b>" + otherTactic + "</b> is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers perusaded by tactic of <b>" + otherTactic + "</b> is <b>" + result.getString(1) + "</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Tactic</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> and persuaded by tactic</th></tr><tr><td>" + otherTactic + "</td><td>" + result.getString(1) + "</td></tr></table>");
 			}
-			
-			
+			out.print("</div><br><br>");
 			//Gets city and count
 			String[] cities = new String[5];
 			
@@ -152,7 +152,7 @@ tr:nth-child(odd) {
 					"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 					"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
 					"WHERE p.Market = '" + market + "' ";
-				if(!gender.equals("Unisex"))
+				if(!gender.equals("all"))
 					str = str + "AND co.Gender = '" + gender + "' ";
 			str = str + "GROUP BY c.City " +
 					"ORDER BY COUNT(i.Name) desc " +
@@ -182,7 +182,7 @@ tr:nth-child(odd) {
 			}
 			out.print("</table><br>");
 			
-			out.print("<p>Select another city to see how many estimated people would be persuaded: ");
+			out.print("<div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another city to see how many estimated people would be persuaded: ");
 			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
 					"<select name=\"city\" required>" +
 						"<option value=\"Boston\">Boston</option>" +
@@ -211,7 +211,7 @@ tr:nth-child(odd) {
 						"INNER JOIN cs336db.commercial c ON c.Name = s.Commercial) " +
 						"INNER JOIN cs336db.consumer co ON co.Name = i.Name) "+
 						"WHERE p.Market = '" + market + "' ";
-				if(!gender.equals("Unisex"))
+				if(!gender.equals("all"))
 						str = str + "AND co.Gender = '" + gender + "' ";
 				str = str + "AND c.City = '" + otherCity + "' ";
 					
@@ -219,9 +219,10 @@ tr:nth-child(odd) {
 				result = stmt.executeQuery(str);
 				
 				if(result.next())
-					out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercial in <b>" + otherCity + "</b> is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercial in <b>" + otherCity + "</b> is <b>" + result.getString(1) + "</b>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>City</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> and live near city</th></tr><tr><td>" + otherCity + "</td><td>" + result.getString(1) + "</td></tr></table>");
 			}
-			
+			out.print("</div><br><br>");
 			
 			//Getting ideal Channel
 			str = "SELECT DISTINCT ch.Name AS 'Best Channel', COUNT(w.Consumer) " +
@@ -233,7 +234,7 @@ tr:nth-child(odd) {
 					"INNER JOIN cs336db.product p ON p.Name = i.ProductName) "+
 					"INNER JOIN cs336db.consumer co ON co.Name = w.Consumer) "+
 					"WHERE p.Market = '" + market + "' ";
-					if(!gender.equals("Unisex"))
+					if(!gender.equals("all"))
 						str = str + "AND co.Gender = '" + gender + "' ";
 					str = str + "GROUP BY ch.Name " +
 					"ORDER BY COUNT(w.Consumer) desc " +
@@ -268,7 +269,7 @@ tr:nth-child(odd) {
 					
 			//Run the query against the database.
 			ResultSet resultCity = stmt.executeQuery(strCity);
-			out.print("<p>Select another city to see how many estimated people would be persuaded: ");
+			out.print("<br><div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another channel to see how many estimated people would watch: ");
 			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
 					"<select name=\"channel\" required>");
 			while(resultCity.next()){
@@ -292,7 +293,7 @@ tr:nth-child(odd) {
 						"INNER JOIN cs336db.product p ON p.Name = i.ProductName) "+
 						"INNER JOIN cs336db.consumer co ON co.Name = w.Consumer) "+
 						"WHERE p.Market = '" + market + "' ";
-						if(!gender.equals("Unisex"))
+						if(!gender.equals("all"))
 							str = str + "AND co.Gender = '" + gender + "' ";						
 						str = str + "AND ch.Name = '" + otherChannel + "' ";
 					
@@ -300,9 +301,10 @@ tr:nth-child(odd) {
 				result = stmt.executeQuery(str);
 				
 				if(result.next())
-					out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercials through channel <b>" + otherChannel + "</b> is <b>" + result.getString(1) + "</b>");
+					//out.print("Total number of <b>" + gender + "</b> consumers perusaded by commercials through channel <b>" + otherChannel + "</b> is <b>" + result.getString(1) + "</b></div>");
+					out.print("<table style = \"border:solid;border-width:2px;\" ><tr><th>Channel</th><th>Number of <b>" + gender + "</b> consumers interested in <b>" + market + "</b> and watching channel</th></tr><tr><td>" + otherChannel + "</td><td>" + result.getString(1) + "</td></tr></table>");
 			}
-			
+			out.print("</div>");
 		//close the connection.
 		db.closeConnection(con);
 		} catch (Exception e) {

@@ -22,8 +22,6 @@
 }
 </style>
 
-
-
 <body>
 	<center>
 	<div id="links" style="width:100%">

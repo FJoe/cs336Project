@@ -9,6 +9,29 @@
 <link rel="stylesheet" href="styles.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Commercials</title>
+
+<style>
+table {    
+	font-family: arial, sans-serif;    
+	border-collapse: collapse;    
+	width: 100%;
+}
+td, th {    
+	border: 1px solid #dddddd;    
+	text-align: left;    
+	padding: 8px;
+}
+tr:nth-child(even) {    
+	background-color: #dddddd;
+}
+tr:nth-child(odd) {    
+	background-color: white;
+}
+
+
+
+</style>
+
 </head>
 <body><center>
 	<div id="links" style="width:100%">

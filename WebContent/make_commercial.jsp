@@ -103,7 +103,6 @@ tr:nth-child(odd) {
 			out.print("<div style = \"border:solid;border-width:2px;padding:5px;background-color:white;\"><p>Select another tactic to see how many estimated people would be persuaded: ");
 			out.print("<form method=\"post\" action=\"make_commercial.jsp\">" +
 					"<select name=\"tactic\" required>" +
-					"<option style=\"color:gray\" value=\">Choose Tactic</option>\"" +
 					"<option value=\"Action\">Action</option>" +
 					"<option value=\"Celebrity Sponsor\">Celebrity Sponsor</option>" +
 					"<option value=\"Comedy\">Comedy</option>" +
@@ -113,7 +112,7 @@ tr:nth-child(odd) {
 				"</select>" +
 				"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
 				"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
-				"<input type=\"submit\" value=\"Add Value\">" +
+				"<input type=\"submit\" value=\"Select\">" +
 				"</form>");
 			
 			String otherTactic = request.getParameter("tactic");
@@ -198,7 +197,7 @@ tr:nth-child(odd) {
 					"</select>" +
 				"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
 				"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
-				"<input type=\"submit\" value=\"Add Value\">" +
+				"<input type=\"submit\" value=\"Select\">" +
 				"</form>");
 			
 			String otherCity = request.getParameter("city");
@@ -278,7 +277,7 @@ tr:nth-child(odd) {
 			out.print("</select>" +
 			"<input type=\"text\" value=\"" + market + "\" name=\"market\" style=\"display:none\">" +
 			"<input type=\"text\" value=\"" + gender + "\" name=\"Gender\" style=\"display:none\">" +
-			"<input type=\"submit\" value=\"Add Value\">" +
+			"<input type=\"submit\" value=\"Select\">" +
 			"</form>");
 			
 			String otherChannel = request.getParameter("channel");
